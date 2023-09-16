@@ -12,6 +12,6 @@ docs: message
 
 ## Anggota Kelompok
 
-1. 13522005 - Ahmad Naufal Ramadan
-2. 13522092 - Sa'ad Abdul Hakim
+1. 13522005 - Ahmad Naufal Ramadan 
+2. 13522092 - Sa'ad Abdul Hakim ganteng
 3. 13522114 - Muhammad Dava Fathurrahman
