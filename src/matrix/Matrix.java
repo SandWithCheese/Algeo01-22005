@@ -31,9 +31,9 @@ public class Matrix {
         for (int i = 0; i < this.row; i++) {
             System.out.print("| ");
             for (int j = 0; j < this.col; j++) {
-                System.out.print(String.format("%8s", data[i][j]));
+                System.out.print(String.format("%20s", data[i][j]));
             }
-            System.out.println(String.format("%8s", "|"));
+            System.out.println(String.format("%20s", "|"));
         }
     }
 
@@ -47,6 +47,10 @@ public class Matrix {
 
     public double getElement(int row, int col) {
         return this.data[row][col];
+    }
+
+    public void setElement(int row, int col, double value) {
+        this.data[row][col] = value;
     }
 
     public boolean isMatrixIdxValid(int row, int col) {
