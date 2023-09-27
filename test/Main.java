@@ -3,6 +3,7 @@ import java.util.Scanner;
 import matrix.Matrix;
 import matrix.determinan.Kofaktor;
 import matrix.balikan.Adjoin;
+import matrix.spl.MatriksBalikan;
 
 public class Main {
     public static void main(String[] args) {
@@ -15,19 +16,22 @@ public class Main {
             System.out.print("Masukkan jumlah kolom: ");
             col = scanner.nextInt();
 
-            Matrix M1 = new Matrix(row, col);
-            M1.readMatrix();
-            M1.displayMatrix();
+            Matrix A = new Matrix(row, col);
+            A.readMatrix(scanner); // Pass the scanner as a parameter
+            A.displayMatrix();
             System.out.println("");
 
-            Adjoin myKofaktor = new Adjoin();
+            Matrix B = new Matrix(row, 1);
+            B.readMatrix(scanner); // Pass the scanner as a parameter
+            B.displayMatrix();
+            System.out.println("");
+
             System.out.println("Hasil Matriks Inverse: ");
 
-            Matrix result = myKofaktor.inverseAdjoin(M1, M1.getRow(), M1.getCol());
+            Matrix result = new MatriksBalikan().SPLInverse(A, B);
             result.displayMatrix();
         } finally {
             scanner.close();
         }
-
     }
 }
