@@ -1,8 +1,7 @@
 import java.util.Scanner;
 
 import matrix.Matrix;
-import matrix.spl.GaussJordan;
-import matrix.spl.Cramer;
+import matrix.determinan.Kofaktor;
 
 public class Main {
     public static void main(String[] args) {
@@ -20,16 +19,11 @@ public class Main {
             M1.displayMatrix();
             System.out.println("");
 
-            Cramer cramer = new Cramer();
-            System.out.println("Hasil Cramer: ");
-            double[] result = cramer.cramer(M1);
-            if (result == null) {
-                System.out.println("Tidak ada solusi");
-            } else {
-                for (int i = 0; i < result.length; i++) {
-                    System.out.println("x" + (i + 1) + " = " + result[i]);
-                }
-            }
+            Kofaktor myDet = new Kofaktor();
+            System.out.println("Hasil Determinan by Kofaktor: ");
+
+            double result = myDet.detKofaktor(M1);
+            System.out.println(result);
         } finally {
             scanner.close();
         }
