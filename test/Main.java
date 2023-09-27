@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 import matrix.Matrix;
 import matrix.determinan.Kofaktor;
+import matrix.balikan.Adjoin;
 
 public class Main {
     public static void main(String[] args) {
@@ -19,11 +20,11 @@ public class Main {
             M1.displayMatrix();
             System.out.println("");
 
-            Kofaktor myDet = new Kofaktor();
-            System.out.println("Hasil Determinan by Kofaktor: ");
+            Adjoin myKofaktor = new Adjoin();
+            System.out.println("Hasil Matriks Inverse: ");
 
-            double result = myDet.detKofaktor(M1);
-            System.out.println(result);
+            Matrix result = myKofaktor.inverseAdjoin(M1, M1.getRow(), M1.getCol());
+            result.displayMatrix();
         } finally {
             scanner.close();
         }
