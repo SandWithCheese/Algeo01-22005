@@ -13,17 +13,12 @@ public class Matrix {
         data = new double[row][col];
     }
 
-    public void readMatrix() {
-        Scanner scanner = new Scanner(System.in);
-        try {
-            System.out.println("Masukkan nilai matriks: ");
-            for (int i = 0; i < this.row; i++) {
-                for (int j = 0; j < this.col; j++) {
-                    this.data[i][j] = scanner.nextDouble();
-                }
+    public void readMatrix(Scanner scanner) {
+        System.out.println("Masukkan nilai matriks: ");
+        for (int i = 0; i < this.row; i++) {
+            for (int j = 0; j < this.col; j++) {
+                this.data[i][j] = scanner.nextDouble();
             }
-        } finally {
-            scanner.close();
         }
     }
 

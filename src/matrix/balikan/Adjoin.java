@@ -4,13 +4,13 @@ import matrix.Matrix;
 import matrix.determinan.Kofaktor;
 
 public class Adjoin {
-    public Matrix MtxKofaktor(Matrix M, int row, int col){
-        Matrix resultCofactor = new Matrix(row, col);
+    public Matrix MtxKofaktor(Matrix M){
+        Matrix resultCofactor = new Matrix(M.getRow(), M.getCol());
 
         Kofaktor Adj = new Kofaktor();
         int sign;
 
-        for (int i = 0; i < row; i++){
+        for (int i = 0; i < M.getRow(); i++){
             if (i % 2 == 0){
                 sign = 1;
             }
@@ -18,7 +18,7 @@ public class Adjoin {
                 sign = -1;
             }
 
-            for (int j = 0; j < col; j++){
+            for (int j = 0; j < M.getCol(); j++){
                 resultCofactor.setElement(i, j, sign * Adj.detKofaktor(Adj.Minor(M, i, j)));
                 sign *= (-1);
             }
@@ -27,22 +27,22 @@ public class Adjoin {
         return resultCofactor;
     }
 
-    public Matrix MtxAdjoin(Matrix M, int row, int col){
-        Matrix resultAdjoin = new Adjoin().MtxKofaktor(M, row, col);
+    public Matrix MtxAdjoin(Matrix M){
+        Matrix resultAdjoin = new Adjoin().MtxKofaktor(M);
 
         return resultAdjoin.transpose();        
     }
 
-    public Matrix inverseAdjoin(Matrix M, int row, int col){
-        Matrix result = new Adjoin().MtxAdjoin(M, row, col);
+    public Matrix inverseAdjoin(Matrix M){
+        Matrix result = new Adjoin().MtxAdjoin(M);
         double det = new Kofaktor().detKofaktor(M);
 
         if (det == 0){
             return null;
         }
         else{
-            for (int i = 0; i < row; i++){
-                for (int j = 0; j < col; j++){
+            for (int i = 0; i < M.getRow(); i++){
+                for (int j = 0; j < M.getCol(); j++){
                     result.setElement(i, j, result.getElement(i, j) * ((double)1 / det));
                 }
             }
