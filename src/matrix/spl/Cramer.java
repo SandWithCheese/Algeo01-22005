@@ -4,6 +4,9 @@ import matrix.Matrix;
 import matrix.determinan.ReduksiBaris;
 
 public class Cramer {
+    /**
+     * Mengembalikan matriks A dari matriks augmented M
+     */
     private Matrix getA(Matrix M) {
         Matrix A = new Matrix(M.getRow(), M.getCol() - 1);
 
@@ -16,6 +19,9 @@ public class Cramer {
         return A;
     }
 
+    /**
+     * Mengembalikan matriks B dari matriks augmented M
+     */
     private Matrix getB(Matrix M) {
         Matrix B = new Matrix(M.getRow(), 1);
 
@@ -26,6 +32,9 @@ public class Cramer {
         return B;
     }
 
+    /**
+     * Mengembalikan matriks dengan mengganti kolom ke-i dengan matriks B
+     */
     private Matrix changeEntry(Matrix M, int col, Matrix B) {
         Matrix result = M.copyMatrix();
 
@@ -36,6 +45,9 @@ public class Cramer {
         return result;
     }
 
+    /**
+     * Mengembalikan solusi SPL dengan metode Cramer
+     */
     public double[] cramer(Matrix M) {
         double[] result = new double[M.getCol() - 1];
 

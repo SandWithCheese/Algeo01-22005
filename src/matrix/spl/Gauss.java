@@ -3,6 +3,9 @@ package matrix.spl;
 import matrix.Matrix;
 
 public class Gauss {
+    /**
+     * Menukar 2 baris pada matriks M
+     */
     private Matrix swapRow(Matrix M, int row1, int row2) {
         Matrix result = M.copyMatrix();
 
@@ -14,6 +17,9 @@ public class Gauss {
         return result;
     }
 
+    /**
+     * Mengalikan baris row pada matriks M dengan multiplier
+     */
     private Matrix multiplyRow(Matrix M, int row, double multiplier) {
         Matrix result = M.copyMatrix();
 
@@ -24,6 +30,9 @@ public class Gauss {
         return result;
     }
 
+    /**
+     * Menambahkan baris row2 pada baris row1 dengan multiplier
+     */
     private Matrix addRow(Matrix M, int row1, int row2, double multiplier) {
         Matrix result = M.copyMatrix();
 
@@ -34,6 +43,9 @@ public class Gauss {
         return result;
     }
 
+    /**
+     * Mengembalikan true jika ada elemen NaN pada matriks M
+     */
     private boolean isAnyNaN(Matrix M) {
         for (int i = 0; i < M.getRow(); i++) {
             for (int j = 0; j < M.getCol(); j++) {
@@ -46,6 +58,9 @@ public class Gauss {
         return false;
     }
 
+    /**
+     * Mengembalikan true jika ada elemen Infinity pada matriks M
+     */
     private boolean isAnyInf(Matrix M) {
         for (int i = 0; i < M.getRow(); i++) {
             for (int j = 0; j < M.getCol(); j++) {
@@ -58,6 +73,9 @@ public class Gauss {
         return false;
     }
 
+    /**
+     * Mengembalikan matriks segitiga atas hasil eliminasi gauss dari matriks M
+     */
     public Matrix gauss(Matrix m) {
         Matrix result = m.copyMatrix();
         Matrix temp;
@@ -80,7 +98,7 @@ public class Gauss {
                 return temp;
             }
 
-            for (int j = i+1; j < m.getRow(); j++) {
+            for (int j = i + 1; j < m.getRow(); j++) {
                 result = this.addRow(result, j, i, -result.getElement(j, i));
             }
         }
