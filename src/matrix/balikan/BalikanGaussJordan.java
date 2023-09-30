@@ -10,6 +10,7 @@ public class BalikanGaussJordan {
     public Matrix balikanGaussJordan(Matrix m) {
         Matrix sementara = new Matrix(m.getRow(), 2 * m.getCol());
         Matrix hasil = new Matrix(m.getRow(), m.getCol());
+        Matrix check = new Matrix(m.getRow(), m.getCol());
 
         for (int i = 0; i < sementara.getRow(); i++) {
             for (int j = 0; j < sementara.getCol(); j++) {
@@ -33,11 +34,15 @@ public class BalikanGaussJordan {
             col = 0;
             for (int j = m.getCol(); j < sementara.getCol(); j++) {
                 hasil.setElement(row, col, sementara.getElement(i, j));
+                check.setElement(row, col, sementara.getElement(i, j-m.getCol()));
                 col++;
             }
             row++;
         }
-
-        return hasil;
+        if (check.isIdentity()) {
+            return hasil;
+        } else {
+            return null;
+        }
     }
 }
