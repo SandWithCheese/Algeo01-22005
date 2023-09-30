@@ -55,6 +55,26 @@ public class Matrix {
         return this.col;
     }
 
+    public Matrix getRowElmt(int row) {
+        Matrix rowElmt = new Matrix(1, this.col);
+
+        for (int i = 0; i < this.col; i++) {
+            rowElmt.data[0][i] = this.data[row][i];
+        }
+
+        return rowElmt;
+    }
+
+    public Matrix getColElmt(int col) {
+        Matrix colElmt = new Matrix(this.row, 1);
+
+        for (int i = 0; i < this.row; i++) {
+            colElmt.data[i][0] = this.data[i][col];
+        }
+
+        return colElmt;
+    }
+
     /**
      * Mengembalikan elemen matriks pada baris dan kolom tertentu
      */

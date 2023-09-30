@@ -42,6 +42,103 @@ public class Main {
 
             if (pilSubMenu2 == 1 || pilSubMenu2 == 2 || pilSubMenu2 == 3 || pilSubMenu2 == 4 || pilSubMenu2 == 5) {
                 switch (pilSubMenu2) {
+                    case 2:
+                        System.out.print("Masukkan jumlah baris: ");
+                        row = scanSubMenu2.nextInt();
+                        System.out.print("Masukkan jumlah kolom: ");
+                        col = scanSubMenu2.nextInt();
+
+                        Matrix M = new Matrix(row, col);
+                        M.readMatrix(scanSubMenu2);
+                        System.out.println("");
+
+                        Matrix resultM = new GaussJordan().gaussJordan(M);
+                        Matrix lastRow = resultM.getRowElmt(row - 1);
+                        boolean isSolvable = false;
+
+                        for (int i = 0; i < col - 1; i++) {
+                            if (lastRow.getElement(0, i) != 0) {
+                                isSolvable = true;
+                                break;
+                            }
+                        }
+
+                        if (!isSolvable && lastRow.getElement(0, col - 1) == 0) {
+                            isSolvable = true;
+                        }
+
+                        resultM.displayMatrix();
+                        System.out.println("");
+
+                        if (isSolvable) {
+                            boolean isZeroMatrix = true;
+                            for (int i = 0; i < col - 1; i++) {
+                                if (lastRow.getElement(0, i) != 0) {
+                                    isZeroMatrix = false;
+                                    break;
+                                }
+                            }
+
+                            if (!isZeroMatrix && lastRow.getElement(0, col - 1) == 0) {
+                                isZeroMatrix = true;
+                            }
+
+                            if (isZeroMatrix) {
+                                System.out.println("-> SPL memiliki banyak solusi\n");
+                                for (int j = 0; j < row; j++) {
+                                    char var = 'a';
+                                    for (int i = 0; i < col - 1; i++) {
+                                        if (i == col - 2) {
+                                            System.out.print(String.valueOf(resultM.getElement(j, i)) + var);
+                                        } else {
+                                            System.out
+                                                    .print(String.valueOf(resultM.getElement(j, i)) + var
+                                                            + " + ");
+                                        }
+                                        var++;
+                                    }
+                                    System.out.print(" = " + String.valueOf(resultM.getElement(j, col - 1)));
+                                    System.out.println("");
+                                }
+                            } else {
+                                if (col - row >= 2) {
+                                    System.out.println("-> SPL memiliki banyak solusi\n");
+                                    for (int j = 0; j < row; j++) {
+                                        char var = 'a';
+                                        for (int i = 0; i < col - 1; i++) {
+                                            if (i == col - 2) {
+                                                System.out.print(String.valueOf(resultM.getElement(j, i)) + var);
+                                            } else {
+                                                System.out
+                                                        .print(String.valueOf(resultM.getElement(j, i)) + var
+                                                                + " + ");
+                                            }
+                                            var++;
+                                        }
+                                        System.out.print(" = " + String.valueOf(resultM.getElement(j, col - 1)));
+                                        System.out.println("");
+                                    }
+                                } else {
+                                    System.out.println("-> SPL memiliki solusi unik\n");
+                                    for (int j = 0; j < row; j++) {
+                                        char var = 'a';
+                                        for (int i = 0; i < col - 1; i++) {
+                                            if (i == j) {
+                                                System.out.print(var);
+                                                break;
+                                            }
+                                            var++;
+                                        }
+                                        System.out.print(" = " + String.valueOf(resultM.getElement(j, col - 1)));
+                                        System.out.println("");
+                                    }
+                                }
+                            }
+                        } else {
+                            System.out.println("-> SPL tidak memiliki solusi\n");
+                        }
+
+                        break;
                     case 3:
                         System.out.println("Penyelesaian x = A'B\n");
 
@@ -74,6 +171,31 @@ public class Main {
                                 System.out.println("");
                             }
                         }
+                        break;
+                    case 4:
+                        System.out.print("Masukkan jumlah baris: ");
+                        row = scanSubMenu2.nextInt();
+                        System.out.print("Masukkan jumlah kolom: ");
+                        col = scanSubMenu2.nextInt();
+
+                        if (col - row != 1) {
+                            System.out.println("-> Tidak bisa dihitung menggunakan metode Cramer\n");
+                            break;
+                        }
+
+                        Matrix M1 = new Matrix(row, col);
+                        M1.readMatrix(scanSubMenu2);
+                        System.out.println("");
+
+                        double[] cramer = new Cramer().cramer(M1);
+
+                        System.out.println("-> Solusi SPL:");
+                        for (int i = 0; i < row; i++) {
+                            System.out.printf("x%d = %f", i + 1, cramer[i]);
+                            System.out.println("");
+                        }
+
+                        break;
                     case 5:
                         exit = true;
                         break;
@@ -117,9 +239,13 @@ public class Main {
                             A.displayMatrix();
                             System.out.println("-> Determinan: " + result + "\n");
                         } else {
-                            double result = new Kofaktor().detKofaktor(A);
-                            A.displayMatrix();
-                            System.out.println("-> Determinan: " + result + "\n");
+                            if (ReduksiBaris.determinan(A) == null) {
+                                System.out.println("-> Tidak Memiliki Determinan\n");
+                            } else {
+                                double result = ReduksiBaris.determinan(A);
+                                A.displayMatrix();
+                                System.out.println("-> Determinan: " + result + "\n");
+                            }
                         }
                     } else {
                         System.out.printf("Matriks Masukan BUKANLAH MATRIKS PERSEGI\n");

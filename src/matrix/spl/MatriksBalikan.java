@@ -1,7 +1,7 @@
 package matrix.spl;
 
 import matrix.Matrix;
-import matrix.balikan.Adjoin;
+import matrix.balikan.BalikanGaussJordan;
 
 public class MatriksBalikan {
     /**
@@ -31,7 +31,7 @@ public class MatriksBalikan {
      * Mengembalikan solusi SPL dengan matriks balikan
      */
     public Matrix SPLInverse(Matrix A, Matrix B) {
-        Matrix Ai = new Adjoin().inverseAdjoin(A);
+        Matrix Ai = new BalikanGaussJordan().balikanGaussJordan(A);
 
         if (Ai != null) {
             Matrix result = multiplyMatrix(Ai, B);

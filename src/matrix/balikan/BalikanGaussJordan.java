@@ -34,7 +34,7 @@ public class BalikanGaussJordan {
             col = 0;
             for (int j = m.getCol(); j < sementara.getCol(); j++) {
                 hasil.setElement(row, col, sementara.getElement(i, j));
-                check.setElement(row, col, sementara.getElement(i, j-m.getCol()));
+                check.setElement(row, col, sementara.getElement(i, j - m.getCol()));
                 col++;
             }
             row++;
