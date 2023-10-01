@@ -4,6 +4,10 @@ import matrix.Matrix;
 import matrix.balikan.*;
 import matrix.determinan.*;
 import matrix.spl.*;
+import matrix.InterpolasiPolinom;
+import java.text.DecimalFormat;
+import java.lang.Math;
+
 
 public class Main {
     private static void welcome() {
@@ -308,11 +312,74 @@ public class Main {
     }
 
     private static void runInterpol() {
-        System.out.println("\nMenghitung Balikan Matriks Persegi");
-        System.out.println("1. Metode Adjoin\n"
-                + "2. Metode Gauss Jordan\n"
-                + "3. Kembali\n");
-        System.out.printf("Masukkan metode pilihan Anda > ");
+        int row;
+        int col = 2;
+        double est;
+        double x;
+        boolean next = true;
+
+        DecimalFormat df = new DecimalFormat("#.####");
+
+        System.out.println("\nMenginterpolasi Titik");
+
+        Scanner scanInterpol = new Scanner(System.in);
+
+        System.out.print("Masukkan jumlah titik: ");
+        row = scanInterpol.nextInt();
+
+        Matrix A = new Matrix(row, col);
+        A.readMatrix(scanInterpol);
+        System.out.println("");
+
+
+        Matrix result = new InterpolasiPolinom().SPLInterpol(A);
+        for (int i = 0; i < result.getRow(); i++){
+            result.setElement(i, result.getCol()-1, Double.parseDouble(df.format(result.getElement(i, result.getCol()-1))));
+        }
+
+        System.out.print("p" + (row-1) + "(x) = ");
+        for (int i = 0; i < result.getRow(); i++){
+            if (i == 0){
+                System.out.print(result.getElement(i, result.getCol()-1));
+            }
+            else if (i == 1){
+                System.out.print(result.getElement(i, result.getCol()-1) + "(x)");
+            }
+            else {
+                System.out.print(result.getElement(i, result.getCol()-1) + "(x" + i + ")");
+            }
+
+
+            if (i != result.getRow()-1){
+                System.out.print(" + ");
+            }
+        }
+
+        while (next){
+            System.out.println("\nMenguji Titik");
+            System.out.println("1. Ya\n"
+                    + "2. Tidak");
+            System.out.printf("Masukkan (1 / 2) > ");
+
+            int ujiInterpol = scanInterpol.nextInt();
+
+            if (ujiInterpol == 1){
+                est = 0.0;
+
+                System.out.print("\nMasukkan titik (x) yang ingin diestimasi: ");
+                x = scanInterpol.nextDouble();
+
+                for (int i = 0; i < result.getRow(); i++){
+                    est = est + result.getElement(i, result.getCol()-1) * (Math.pow(x, i));
+                }
+                
+                System.out.println("p(" + x + ") = " +  Double.parseDouble(df.format(est)));
+            }
+            else{
+                next = false;
+            }
+        }
+        System.out.println("");        
     }
 
     private static void runBicubic() {
