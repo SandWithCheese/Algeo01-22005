@@ -2,6 +2,9 @@ package matrix.determinan;
 
 import matrix.Matrix;
 
+/**
+ * Membuat kelas bentukan Pair untuk menyimpan dua nilai
+ */
 class Pair<X, Y> {
     private final X k;
     private final Y v;
@@ -21,6 +24,9 @@ class Pair<X, Y> {
 }
 
 public class ReduksiBaris {
+    /**
+     * Menukar 2 baris pada matriks M
+     */
     private static Matrix swapRow(Matrix M, int row1, int row2) {
         Matrix result = M.copyMatrix();
 
@@ -32,6 +38,9 @@ public class ReduksiBaris {
         return result;
     }
 
+    /**
+     * Menambahkan baris row2 pada baris row1 dengan multiplier
+     */
     private static Matrix addRow(Matrix M, int row1, int row2, double multiplier) {
         Matrix result = M.copyMatrix();
 
@@ -42,6 +51,9 @@ public class ReduksiBaris {
         return result;
     }
 
+    /**
+     * Mengembalikan matriks segitiga atas dari matriks M
+     */
     private static Pair<Matrix, Integer> reduceToTriangle(Matrix M) {
         Matrix result = M.copyMatrix();
         Integer count = 0;
@@ -69,6 +81,9 @@ public class ReduksiBaris {
         return new Pair<Matrix, Integer>(result, count);
     }
 
+    /**
+     * Mengembalikan determinan dari matriks M
+     */
     public static Double determinan(Matrix M) {
         if (!M.isSquareMatrix()) {
             return null;

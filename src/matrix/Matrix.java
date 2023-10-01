@@ -13,6 +13,9 @@ public class Matrix {
         data = new double[row][col];
     }
 
+    /**
+     * Membaca matriks dari input user
+     */
     public void readMatrix(Scanner scanner) {
         System.out.println("Masukkan nilai matriks: ");
         for (int i = 0; i < this.row; i++) {
@@ -22,36 +25,80 @@ public class Matrix {
         }
     }
 
+    /**
+     * Menampilkan matriks pada terminal
+     */
     public void displayMatrix() {
         for (int i = 0; i < this.row; i++) {
-            System.out.print("| ");
+            System.out.print("[");
             for (int j = 0; j < this.col; j++) {
-                System.out.print(String.format("%20s", data[i][j]));
+                System.out.print(data[i][j]);
+                if (j != this.col - 1) {
+                    System.out.print(", ");
+                }
             }
-            System.out.println(String.format("%20s", "|"));
+            System.out.println("]");
         }
     }
 
+    /**
+     * Mengembalikan jumlah baris matriks
+     */
     public int getRow() {
         return this.row;
     }
 
+    /**
+     * Mengembalikan jumlah kolom matriks
+     */
     public int getCol() {
         return this.col;
     }
 
+    public Matrix getRowElmt(int row) {
+        Matrix rowElmt = new Matrix(1, this.col);
+
+        for (int i = 0; i < this.col; i++) {
+            rowElmt.data[0][i] = this.data[row][i];
+        }
+
+        return rowElmt;
+    }
+
+    public Matrix getColElmt(int col) {
+        Matrix colElmt = new Matrix(this.row, 1);
+
+        for (int i = 0; i < this.row; i++) {
+            colElmt.data[i][0] = this.data[i][col];
+        }
+
+        return colElmt;
+    }
+
+    /**
+     * Mengembalikan elemen matriks pada baris dan kolom tertentu
+     */
     public double getElement(int row, int col) {
         return this.data[row][col];
     }
 
+    /**
+     * Mengubah elemen matriks pada baris dan kolom tertentu
+     */
     public void setElement(int row, int col, double value) {
         this.data[row][col] = value;
     }
 
+    /**
+     * Mengecek apakah indeks baris dan kolom valid
+     */
     public boolean isMatrixIdxValid(int row, int col) {
         return row >= 0 && row < this.row && col >= 0 && col < this.col;
     }
 
+    /**
+     * Men-copy matriks ke matriks baru
+     */
     public Matrix copyMatrix() {
         Matrix copy = new Matrix(this.row, this.col);
 
@@ -62,10 +109,16 @@ public class Matrix {
         return copy;
     }
 
+    /**
+     * Mengecek apakah matriks merupakan matriks persegi
+     */
     public boolean isSquareMatrix() {
         return this.row == this.col;
     }
 
+    /**
+     * Mengecek apakah matriks merupakan matriks identitas
+     */
     public boolean isIdentity() {
         if (!this.isSquareMatrix()) {
             return false;
@@ -86,6 +139,9 @@ public class Matrix {
         return true;
     }
 
+    /**
+     * Mengembalikan transpose dari matriks
+     */
     public Matrix transpose() {
         Matrix transpose = new Matrix(this.col, this.row);
 
