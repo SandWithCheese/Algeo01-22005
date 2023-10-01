@@ -8,7 +8,6 @@ import matrix.InterpolasiPolinom;
 import java.text.DecimalFormat;
 import java.lang.Math;
 
-
 public class Main {
     private static void welcome() {
         System.out.println("Selamat Datang di Program Tugas Besar I\n"
@@ -47,13 +46,40 @@ public class Main {
             if (pilSubMenu2 == 1 || pilSubMenu2 == 2 || pilSubMenu2 == 3 || pilSubMenu2 == 4 || pilSubMenu2 == 5) {
                 switch (pilSubMenu2) {
                     case 2:
-                        System.out.print("Masukkan jumlah baris: ");
-                        row = scanSubMenu2.nextInt();
-                        System.out.print("Masukkan jumlah kolom: ");
-                        col = scanSubMenu2.nextInt();
+                        boolean isFile = false;
 
-                        Matrix M = new Matrix(row, col);
-                        M.readMatrix(scanSubMenu2);
+                        System.out.printf("Masukan dari terminal (T) atau file (F) > ");
+                        String input = scanSubMenu2.next().toUpperCase();
+
+                        if (input.equals("F")) {
+                            isFile = true;
+                        } else if (!input.equals("F") && !input.equals("T")) {
+                            System.out.println("Masukan TIDAK VALID\n");
+                            break;
+                        }
+
+                        Matrix M = new Matrix(0, 0);
+                        if (isFile) {
+                            System.out.printf("Masukkan nama file: ");
+                            String pathToFile = scanSubMenu2.next();
+
+                            M = M.readMatrixFromFile(pathToFile);
+
+                            if (M == null) {
+                                break;
+                            }
+
+                            row = M.getRow();
+                            col = M.getCol();
+                        } else {
+                            System.out.print("Masukkan jumlah baris: ");
+                            row = scanSubMenu2.nextInt();
+                            System.out.print("Masukkan jumlah kolom: ");
+                            col = scanSubMenu2.nextInt();
+                            M = new Matrix(row, col);
+                            M.readMatrix(scanSubMenu2);
+                        }
+
                         System.out.println("");
 
                         Matrix resultM = new GaussJordan().gaussJordan(M);
@@ -331,31 +357,28 @@ public class Main {
         A.readMatrix(scanInterpol);
         System.out.println("");
 
-
         Matrix result = new InterpolasiPolinom().SPLInterpol(A);
-        for (int i = 0; i < result.getRow(); i++){
-            result.setElement(i, result.getCol()-1, Double.parseDouble(df.format(result.getElement(i, result.getCol()-1))));
+        for (int i = 0; i < result.getRow(); i++) {
+            result.setElement(i, result.getCol() - 1,
+                    Double.parseDouble(df.format(result.getElement(i, result.getCol() - 1))));
         }
 
-        System.out.print("p" + (row-1) + "(x) = ");
-        for (int i = 0; i < result.getRow(); i++){
-            if (i == 0){
-                System.out.print(result.getElement(i, result.getCol()-1));
-            }
-            else if (i == 1){
-                System.out.print(result.getElement(i, result.getCol()-1) + "(x)");
-            }
-            else {
-                System.out.print(result.getElement(i, result.getCol()-1) + "(x" + i + ")");
+        System.out.print("p" + (row - 1) + "(x) = ");
+        for (int i = 0; i < result.getRow(); i++) {
+            if (i == 0) {
+                System.out.print(result.getElement(i, result.getCol() - 1));
+            } else if (i == 1) {
+                System.out.print(result.getElement(i, result.getCol() - 1) + "(x)");
+            } else {
+                System.out.print(result.getElement(i, result.getCol() - 1) + "(x" + i + ")");
             }
 
-
-            if (i != result.getRow()-1){
+            if (i != result.getRow() - 1) {
                 System.out.print(" + ");
             }
         }
 
-        while (next){
+        while (next) {
             System.out.println("\nMenguji Titik");
             System.out.println("1. Ya\n"
                     + "2. Tidak");
@@ -363,23 +386,22 @@ public class Main {
 
             int ujiInterpol = scanInterpol.nextInt();
 
-            if (ujiInterpol == 1){
+            if (ujiInterpol == 1) {
                 est = 0.0;
 
                 System.out.print("\nMasukkan titik (x) yang ingin diestimasi: ");
                 x = scanInterpol.nextDouble();
 
-                for (int i = 0; i < result.getRow(); i++){
-                    est = est + result.getElement(i, result.getCol()-1) * (Math.pow(x, i));
+                for (int i = 0; i < result.getRow(); i++) {
+                    est = est + result.getElement(i, result.getCol() - 1) * (Math.pow(x, i));
                 }
-                
-                System.out.println("p(" + x + ") = " +  Double.parseDouble(df.format(est)));
-            }
-            else{
+
+                System.out.println("p(" + x + ") = " + Double.parseDouble(df.format(est)));
+            } else {
                 next = false;
             }
         }
-        System.out.println("");        
+        System.out.println("");
     }
 
     private static void runBicubic() {

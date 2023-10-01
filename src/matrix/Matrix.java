@@ -1,6 +1,7 @@
 package matrix;
 
 import java.util.Scanner;
+import java.io.File;
 
 public class Matrix {
     private final int row;
@@ -22,6 +23,51 @@ public class Matrix {
             for (int j = 0; j < this.col; j++) {
                 this.data[i][j] = scanner.nextDouble();
             }
+        }
+    }
+
+    /**
+     * Membaca matriks dari file
+     */
+    public Matrix readMatrixFromFile(String pathToFile) {
+        try {
+            int row, col;
+            File file1 = new File(pathToFile);
+            Scanner scanner1 = new Scanner(file1);
+            row = 0;
+            col = 0;
+            while (scanner1.hasNextLine()) {
+                String data = scanner1.nextLine();
+                String[] array = data.split(" ");
+                col = array.length;
+                row += 1;
+            }
+            scanner1.close();
+
+            Matrix matrix = new Matrix(row, col);
+            File file2 = new File(pathToFile);
+            Scanner scanner2 = new Scanner(file2);
+            int mrow = 0;
+            while (scanner2.hasNextLine()) {
+                String data = scanner2.nextLine();
+                String[] array = data.split(" ");
+                for (int i = 0; i < array.length; i++) {
+                    matrix.setElement(mrow, i, Double.parseDouble(array[i]));
+                }
+                mrow += 1;
+            }
+
+            matrix.displayMatrix();
+            scanner2.close();
+
+            return matrix;
+        } catch (Exception e) {
+            if (e.toString().contains("FileNotFoundException")) {
+                System.out.println("File tidak ditemukan");
+            } else {
+                System.out.println("Input matriks tidak valid");
+            }
+            return null;
         }
     }
 
@@ -55,6 +101,9 @@ public class Matrix {
         return this.col;
     }
 
+    /**
+     * Mengembalikan elemen baris ke-i dari matriks
+     */
     public Matrix getRowElmt(int row) {
         Matrix rowElmt = new Matrix(1, this.col);
 
@@ -65,6 +114,9 @@ public class Matrix {
         return rowElmt;
     }
 
+    /**
+     * Mengembalikan elemen kolom ke-i dari matriks
+     */
     public Matrix getColElmt(int col) {
         Matrix colElmt = new Matrix(this.row, 1);
 
