@@ -170,6 +170,8 @@ public class Main {
                         } else {
                             System.out.println("-> SPL tidak memiliki solusi\n");
                         }
+
+                        break;
                     case 2:
                         isFile = false;
 
@@ -700,18 +702,49 @@ public class Main {
         DecimalFormat df = new DecimalFormat("#.####");
 
         System.out.println("\nMengregresi Linear Berganda Sampel");
+        System.out.println("");
 
         Scanner scanRegresi = new Scanner(System.in);
 
-        System.out.print("Masukkan jumlah peubah x: ");
-        col = scanRegresi.nextInt();
-        col++;
-        System.out.print("");
-        System.out.print("Masukkan jumlah sampel: ");
-        row = scanRegresi.nextInt();
+        boolean isFile = false;
 
-        Matrix A = new Matrix(row, col);
-        A.readMatrix(scanRegresi);
+        System.out.printf("Masukan dari terminal (T) atau file (F) > ");
+        String input = scanRegresi.next().toUpperCase();
+
+        if (input.equals("F")) {
+            isFile = true;
+        } else if (!input.equals("F") && !input.equals("T")) {
+            System.out.println("Masukan TIDAK VALID\n");
+            scanRegresi.close();
+            return;
+        }
+
+        Matrix A = new Matrix(0, 0);
+        if (isFile) {
+            System.out.printf("Masukkan nama file: ");
+            String pathToFile = scanRegresi.next();
+
+            A = A.readMatrixFromFile(pathToFile);
+
+            if (A == null) {
+                scanRegresi.close();
+                return;
+            }
+
+            row = A.getRow();
+            col = A.getCol();
+        } else {
+            System.out.print("Masukkan jumlah peubah x: ");
+            col = scanRegresi.nextInt();
+            col++;
+            System.out.print("");
+            System.out.print("Masukkan jumlah sampel: ");
+            row = scanRegresi.nextInt();
+
+            A = new Matrix(row, col);
+            A.readMatrix(scanRegresi);
+        }
+
         System.out.println("");
 
         Matrix result = new RegresiLinearBerganda().regresiLinear(A);
@@ -720,16 +753,16 @@ public class Main {
                     Double.parseDouble(df.format(result.getElement(i, result.getCol() - 1))));
         }
 
+        System.out.println("f(x) = ");
         for (int i = 0;i < result.getRow();i++){
             if (i == 0){
                 System.out.print(result.getElement(i, result.getCol()-1)+" + ");
             } else if (i == result.getRow()-1){
-                System.out.print(result.getElement(i, result.getCol()-1)+"x"+i+" = ");
+                System.out.print(result.getElement(i, result.getCol()-1)+"x"+i);
             } else {
                 System.out.print(result.getElement(i, result.getCol()-1)+"x"+i+" + ");
             }
         }
-        System.out.println("y");
         
         while (next) {
             System.out.println("\nEstimasi Nilai (y)");
@@ -746,7 +779,7 @@ public class Main {
                     x = scanRegresi.nextDouble();
                     hasil += x;
                 }
-                System.out.println("Nilai estimasi y: " + Double.parseDouble(df.format(hasil)));
+                System.out.println("f(x) = " + Double.parseDouble(df.format(hasil)));
             } else {
                 next = false;
             }
