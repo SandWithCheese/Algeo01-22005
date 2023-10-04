@@ -2,6 +2,8 @@ package matrix;
 
 import matrix.Matrix;
 import matrix.spl.GaussJordan;
+import java.util.Scanner;
+import java.io.File;
 
 
 public class InterpolasiPolinom {
@@ -24,5 +26,30 @@ public class InterpolasiPolinom {
 
 
         return lanjar;
+    }
+
+    public int countTest(String pathToFile){
+        try {
+            int nUji = 0;
+            File file1 = new File(pathToFile);
+            Scanner scanner1 = new Scanner(file1);
+            while (scanner1.hasNextLine()) {
+                String data = scanner1.nextLine();
+                String[] array = data.split(" ");
+                if (array.length == 1){
+                    nUji++;
+                }
+            }
+            scanner1.close();
+
+            return nUji;
+        } catch (Exception e) {
+            if (e.toString().contains("FileNotFoundException")) {
+                System.out.println("File tidak ditemukan");
+            } else {
+                System.out.println("Input titik tidak valid");
+            }
+            return 0;
+        }
     }
 }
