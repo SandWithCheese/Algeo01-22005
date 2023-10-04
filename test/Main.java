@@ -6,6 +6,7 @@ import matrix.determinan.*;
 import matrix.spl.*;
 import matrix.BicubicSpline;
 import matrix.InterpolasiPolinom;
+import matrix.RegresiLinearBerganda;
 import java.text.DecimalFormat;
 import java.io.File;
 import java.lang.Math;
@@ -47,7 +48,7 @@ public class Main {
 
             if (pilSubMenu2 == 1 || pilSubMenu2 == 2 || pilSubMenu2 == 3 || pilSubMenu2 == 4 || pilSubMenu2 == 5) {
                 switch (pilSubMenu2) {
-                    case 2:
+                    case 1:
                         boolean isFile = false;
 
                         System.out.printf("Masukan dari terminal (T) atau file (F) > ");
@@ -84,9 +85,131 @@ public class Main {
 
                         System.out.println("");
 
-                        Matrix resultM = new GaussJordan().gaussJordan(M);
+                        Matrix resultM = new Gauss().gauss(M);
                         Matrix lastRow = resultM.getRowElmt(row - 1);
                         boolean isSolvable = false;
+
+                        for (int i = 0; i < col - 1; i++) {
+                            if (lastRow.getElement(0, i) != 0) {
+                                isSolvable = true;
+                                break;
+                            }
+                        }
+
+                        if (!isSolvable && lastRow.getElement(0, col - 1) == 0) {
+                            isSolvable = true;
+                        }
+
+                        resultM.displayMatrix();
+                        System.out.println("");
+
+                        if (isSolvable) {
+                            boolean isZeroMatrix = true;
+                            for (int i = 0; i < col - 1; i++) {
+                                if (lastRow.getElement(0, i) != 0) {
+                                    isZeroMatrix = false;
+                                    break;
+                                }
+                            }
+
+                            if (!isZeroMatrix && lastRow.getElement(0, col - 1) == 0) {
+                                isZeroMatrix = true;
+                            }
+
+                            if (isZeroMatrix) {
+                                System.out.println("-> SPL memiliki banyak solusi\n");
+                                for (int j = 0; j < row; j++) {
+                                    char var = 'a';
+                                    for (int i = 0; i < col - 1; i++) {
+                                        if (i == col - 2) {
+                                            System.out.print(String.valueOf(resultM.getElement(j, i)) + var);
+                                        } else {
+                                            System.out
+                                                    .print(String.valueOf(resultM.getElement(j, i)) + var
+                                                            + " + ");
+                                        }
+                                        var++;
+                                    }
+                                    System.out.print(" = " + String.valueOf(resultM.getElement(j, col - 1)));
+                                    System.out.println("");
+                                }
+                            } else {
+                                if (col - row >= 2) {
+                                    System.out.println("-> SPL memiliki banyak solusi\n");
+                                    for (int j = 0; j < row; j++) {
+                                        char var = 'a';
+                                        for (int i = 0; i < col - 1; i++) {
+                                            if (i == col - 2) {
+                                                System.out.print(String.valueOf(resultM.getElement(j, i)) + var);
+                                            } else {
+                                                System.out
+                                                        .print(String.valueOf(resultM.getElement(j, i)) + var
+                                                                + " + ");
+                                            }
+                                            var++;
+                                        }
+                                        System.out.print(" = " + String.valueOf(resultM.getElement(j, col - 1)));
+                                        System.out.println("");
+                                    }
+                                } else {
+                                    System.out.println("-> SPL memiliki solusi unik\n");
+                                    for (int j = 0; j < row; j++) {
+                                        char var = 'a';
+                                        for (int i = 0; i < col - 1; i++) {
+                                            if (i == j) {
+                                                System.out.print(var);
+                                                break;
+                                            }
+                                            var++;
+                                        }
+                                        System.out.print(" = " + String.valueOf(resultM.getElement(j, col - 1)));
+                                        System.out.println("");
+                                    }
+                                }
+                            }
+                        } else {
+                            System.out.println("-> SPL tidak memiliki solusi\n");
+                        }
+                    case 2:
+                        isFile = false;
+
+                        System.out.printf("Masukan dari terminal (T) atau file (F) > ");
+                        input = scanSubMenu2.next().toUpperCase();
+
+                        if (input.equals("F")) {
+                            isFile = true;
+                        } else if (!input.equals("F") && !input.equals("T")) {
+                            System.out.println("Masukan TIDAK VALID\n");
+                            break;
+                        }
+
+                        M = new Matrix(0, 0);
+                        if (isFile) {
+                            System.out.printf("Masukkan nama file: ");
+                            String pathToFile = scanSubMenu2.next();
+
+                            M = M.readMatrixFromFile(pathToFile);
+
+                            if (M == null) {
+                                break;
+                            }
+
+                            row = M.getRow();
+                            col = M.getCol();
+                        } else {
+                            System.out.print("Masukkan jumlah baris: ");
+                            row = scanSubMenu2.nextInt();
+                            System.out.print("Masukkan jumlah kolom: ");
+                            col = scanSubMenu2.nextInt();
+                            M = new Matrix(row, col);
+                            M.readMatrix(scanSubMenu2);
+                        }
+
+                        System.out.println("");
+
+                        resultM = new GaussJordan().gaussJordan(M);
+                        lastRow = resultM.getRowElmt(row - 1);
+                        isSolvable = false;
 
                         for (int i = 0; i < col - 1; i++) {
                             if (lastRow.getElement(0, i) != 0) {
@@ -388,7 +511,12 @@ public class Main {
                             }
                         } else {
                             Matrix result = new BalikanGaussJordan().balikanGaussJordan(A);
-                            result.displayMatrix();
+                            if (result == null) {
+                                System.out.println("-> Tidak Memiliki Matriks Balikan\n");
+                            } else {
+                                System.out.println("-> Hasil Matriks Balikan:");
+                                result.displayMatrix();
+                            }
                         }
                     } else {
                         System.out.printf("Matriks Masukan BUKANLAH MATRIKS PERSEGI\n");
@@ -563,11 +691,67 @@ public class Main {
     }
 
     private static void runRegresi() {
-        System.out.println("\nMenghitung Balikan Matriks Persegi");
-        System.out.println("1. Metode Adjoin\n"
-                + "2. Metode Gauss Jordan\n"
-                + "3. Kembali\n");
-        System.out.printf("Masukkan metode pilihan Anda > ");
+        int row;
+        int col;
+        double x;
+        double hasil;
+        boolean next = true;
+
+        DecimalFormat df = new DecimalFormat("#.####");
+
+        System.out.println("\nMengregresi Linear Berganda Sampel");
+
+        Scanner scanRegresi = new Scanner(System.in);
+
+        System.out.print("Masukkan jumlah peubah x: ");
+        col = scanRegresi.nextInt();
+        col++;
+        System.out.print("");
+        System.out.print("Masukkan jumlah sampel: ");
+        row = scanRegresi.nextInt();
+
+        Matrix A = new Matrix(row, col);
+        A.readMatrix(scanRegresi);
+        System.out.println("");
+
+        Matrix result = new RegresiLinearBerganda().regresiLinear(A);
+        for (int i = 0; i < result.getRow(); i++) {
+            result.setElement(i, result.getCol() - 1,
+                    Double.parseDouble(df.format(result.getElement(i, result.getCol() - 1))));
+        }
+
+        for (int i = 0;i < result.getRow();i++){
+            if (i == 0){
+                System.out.print(result.getElement(i, result.getCol()-1)+" + ");
+            } else if (i == result.getRow()-1){
+                System.out.print(result.getElement(i, result.getCol()-1)+"x"+i+" = ");
+            } else {
+                System.out.print(result.getElement(i, result.getCol()-1)+"x"+i+" + ");
+            }
+        }
+        System.out.println("y");
+        
+        while (next) {
+            System.out.println("\nEstimasi Nilai (y)");
+            System.out.println("1. Ya\n"
+                    + "2. Tidak");
+            System.out.printf("Masukkan (1 / 2) > ");
+
+            int ujiRegresi = scanRegresi.nextInt();
+
+            if (ujiRegresi == 1) {
+                hasil = result.getElement(0, result.getCol()-1);
+                for (int i = 1; i < result.getCol()-2;i++){
+                    System.out.print("\nMasukkan nilai x"+i+": ");
+                    x = scanRegresi.nextDouble();
+                    hasil += x;
+                }
+                System.out.println("Nilai estimasi y: " + Double.parseDouble(df.format(hasil)));
+            } else {
+                next = false;
+            }
+        }
+        System.out.println("");
     }
 
     private static void credit() {
