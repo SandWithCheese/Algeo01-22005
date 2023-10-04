@@ -493,13 +493,41 @@ public class Main {
                 if (pilSubMenu2 == 3) {
                     exit = true;
                 } else {
-                    System.out.print("Masukkan jumlah baris: ");
-                    row = scanSubMenu3.nextInt();
-                    System.out.print("Masukkan jumlah kolom: ");
-                    col = scanSubMenu3.nextInt();
+                    boolean isFile = false;
 
-                    Matrix A = new Matrix(row, col);
-                    A.readMatrix(scanSubMenu3);
+                    System.out.printf("Masukan dari terminal (T) atau file (F) > ");
+                    String input = scanSubMenu3.next().toUpperCase();
+
+                    if (input.equals("F")) {
+                        isFile = true;
+                    } else if (!input.equals("F") && !input.equals("T")) {
+                        System.out.println("Masukan TIDAK VALID\n");
+                        break;
+                    }
+
+                    Matrix A = new Matrix(0, 0);
+                    if (isFile) {
+                        System.out.printf("Masukkan nama file: ");
+                        String pathToFile = scanSubMenu3.next();
+
+                        A = A.readMatrixFromFile(pathToFile);
+
+                        if (A == null) {
+                            break;
+                        }
+
+                        row = A.getRow();
+                        col = A.getCol();
+                    } else {
+                        System.out.print("Masukkan jumlah baris: ");
+                        row = scanSubMenu3.nextInt();
+                        System.out.print("Masukkan jumlah kolom: ");
+                        col = scanSubMenu3.nextInt();
+
+                        A = new Matrix(row, col);
+                        A.readMatrix(scanSubMenu3);
+                    }
+
                     System.out.println("");
 
                     if (A.isSquareMatrix()) {
