@@ -5,7 +5,7 @@ import matrix.balikan.*;
 import matrix.determinan.*;
 import matrix.spl.*;
 import matrix.BicubicSpline;
-import matrix.InterpolasiPolinom.*;
+import matrix.InterpolasiPolinom;
 import matrix.RegresiLinearBerganda;
 import java.text.DecimalFormat;
 import java.io.File;
@@ -611,7 +611,7 @@ public class Main {
             }
 
             Matrix A = new Matrix(0, 0);
-            Matrix uji = null;
+            Matrix uji = new Matrix(0, 0);
             if (isFile) {
                 System.out.printf("Masukkan nama file: ");
                 String pathToFile = scanInterpol.next();
@@ -625,7 +625,6 @@ public class Main {
                 row = A.getRow();
 
                 int nUji = new InterpolasiPolinom().countTest(pathToFile);
-                System.out.println(nUji);
 
                 if (nUji != 0){
                     uji = uji.readInterpolTestFromFile(nUji, pathToFile);
@@ -637,7 +636,7 @@ public class Main {
                 System.out.print("Masukkan jumlah titik: ");
                 row = scanInterpol.nextInt();
 
-                A = new Matrix(row, col);
+                A = new Matrix(row, 2);
                 A.readMatrix(scanInterpol);
                 System.out.println("");
             }
@@ -664,11 +663,11 @@ public class Main {
                     System.out.print(" + ");
                 }
             }
+            System.out.println("");
+
 
             while (next) {
                 if (isFile == true){
-                    uji.displayMatrix();
-                    
                     for (int i = 0; i < uji.getRow(); i ++){
                         est = 0.0;
                         for (int j = 0; j < result.getRow(); j++) {
@@ -677,6 +676,7 @@ public class Main {
 
                         System.out.println("p(" + uji.getElement(i, 0) + ") = " + Double.parseDouble(df.format(est)));
                     }
+                    next = false;
                 }
                 else{
                     System.out.println("\nMenguji Titik");
@@ -703,6 +703,7 @@ public class Main {
                 }
             }
             System.out.println("");
+            break;
         }
     }
 
