@@ -72,6 +72,82 @@ public class Matrix {
     }
 
     /**
+     * Membaca titik interpolasi dari file
+     */
+    public Matrix readInterpolMatrixFromFile(String pathToFile) {
+        try {
+            int row, col;
+            File file1 = new File(pathToFile);
+            Scanner scanner1 = new Scanner(file1);
+            row = 0;
+            col = 2;
+            while (scanner1.hasNextLine()) {
+                String data = scanner1.nextLine();
+                String[] array = data.split(" ");
+                if (array.length == 2){
+                    row++;
+                }
+            }
+            scanner1.close();
+
+            Matrix matrix = new Matrix(row, 2);
+            File file2 = new File(pathToFile);
+            Scanner scanner2 = new Scanner(file2);
+            int mrow = 0;
+            while (scanner2.hasNextLine()) {
+                String data = scanner2.nextLine();
+                String[] array = data.split(" ");
+                if (array.length == 2){
+                    for (int i = 0; i < array.length; i++) {
+                        matrix.setElement(mrow, i, Double.parseDouble(array[i]));
+                    }
+                    mrow++;
+                }
+            }
+
+            matrix.displayMatrix();
+            scanner2.close();
+
+            return matrix;
+        } catch (Exception e) {
+            if (e.toString().contains("FileNotFoundException")) {
+                System.out.println("File tidak ditemukan");
+            } else {
+                System.out.println("Input matriks tidak valid");
+            }
+            return null;
+        }
+    }
+
+    public Matrix readInterpolTestFromFile(int n, String pathToFile) {
+        try {
+            Matrix pointTest = new Matrix(n, 1);
+            File file2 = new File(pathToFile);
+            Scanner scanner1 = new Scanner(file2);
+            int mrow = 0;
+            while (scanner1.hasNextLine()) {
+                String data = scanner1.nextLine();
+                String[] array = data.split(" ");
+                if (array.length == 1){
+                    pointTest.setElement(mrow, 0, Double.parseDouble(array[0]));
+                    mrow++;
+                }
+            }
+            pointTest.displayMatrix();
+            scanner1.close();
+
+            return pointTest;
+        } catch (Exception e) {
+            if (e.toString().contains("FileNotFoundException")) {
+                System.out.println("File tidak ditemukan");
+            } else {
+                System.out.println("Input titik uji tidak valid");
+            }
+            return null;
+        }
+    }
+
+    /**
      * Menampilkan matriks pada terminal
      */
     public void displayMatrix() {
