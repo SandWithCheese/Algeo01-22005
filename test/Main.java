@@ -137,19 +137,19 @@ public class Main {
                                         if (i == col - 2) {
                                             output += String
                                                     .valueOf(Double.parseDouble(df.format(resultM.getElement(j, i))))
-                                                    + String.format("x_%d", idx);
+                                                    + String.format("(x_%d)", idx + 1);
                                             System.out.print(String
                                                     .valueOf(Double.parseDouble(df.format(resultM.getElement(j, i))))
-                                                    + String.format("x_%d", idx));
+                                                    + String.format("(x_%d)", idx + 1));
                                         } else {
                                             output += String
                                                     .valueOf(Double.parseDouble(df.format(resultM.getElement(j, i))))
-                                                    + String.format("x_%d", idx)
+                                                    + String.format("(x_%d)", idx + 1)
                                                     + " + ";
                                             System.out
                                                     .print(String.valueOf(
                                                             Double.parseDouble(df.format(resultM.getElement(j, i))))
-                                                            + String.format("x_%d", idx)
+                                                            + String.format("(x_%d)", idx + 1)
                                                             + " + ");
                                         }
                                         idx++;
@@ -172,19 +172,19 @@ public class Main {
                                             if (i == col - 2) {
                                                 output += String.valueOf(
                                                         Double.parseDouble(df.format(resultM.getElement(j, i))))
-                                                        + String.format("x_%d", idx);
+                                                        + String.format("(x_%d)", idx + 1);
                                                 System.out.print(String.valueOf(
                                                         Double.parseDouble(df.format(resultM.getElement(j, i))))
-                                                        + String.format("x_%d", idx));
+                                                        + String.format("(x_%d)", idx + 1));
                                             } else {
                                                 output += String.valueOf(
                                                         Double.parseDouble(df.format(resultM.getElement(j, i))))
-                                                        + String.format("x_%d", idx)
+                                                        + String.format("(x_%d)", idx + 1)
                                                         + " + ";
                                                 System.out
                                                         .print(String.valueOf(
                                                                 Double.parseDouble(df.format(resultM.getElement(j, i))))
-                                                                + String.format("x_%d", idx)
+                                                                + String.format("(x_%d)", idx + 1)
                                                                 + " + ");
                                             }
                                             idx++;
@@ -206,8 +206,8 @@ public class Main {
                                         for (int i = j; i < col - 1; i++) {
                                             if (i == j) {
                                                 res = resultM.getElement(j, col - 1);
-                                                output += String.format("x_%d", idx);
-                                                System.out.print(String.format("x_%d", idx));
+                                                output += String.format("x_%d", idx + 1);
+                                                System.out.print(String.format("x_%d", idx + 1));
                                             } else {
                                                 res = res - resultM.getElement(j, i) * resultM.getElement(i, col - 1);
                                             }
@@ -322,16 +322,16 @@ public class Main {
                                     for (int i = 0; i < col - 1; i++) {
                                         if (i == col - 2) {
                                             output += String.valueOf(df.format(resultM.getElement(j, i)))
-                                                    + String.format("x_%d", idx);
+                                                    + String.format("(x_%d)", idx + 1);
                                             System.out.print(String.valueOf(df.format(resultM.getElement(j, i)))
-                                                    + String.format("x_%d", idx));
+                                                    + String.format("(x_%d)", idx + 1));
                                         } else {
                                             output += String.valueOf(df.format(resultM.getElement(j, i)))
-                                                    + String.format("x_%d", idx)
+                                                    + String.format("(x_%d)", idx + 1)
                                                     + " + ";
                                             System.out
                                                     .print(String.valueOf(df.format(resultM.getElement(j, i)))
-                                                            + String.format("x_%d", idx)
+                                                            + String.format("(x_%d)", idx + 1)
                                                             + " + ");
                                         }
                                         idx++;
@@ -349,16 +349,16 @@ public class Main {
                                         for (int i = 0; i < col - 1; i++) {
                                             if (i == col - 2) {
                                                 output += String.valueOf(df.format(resultM.getElement(j, i)))
-                                                        + String.format("x_%d", idx);
+                                                        + String.format("(x_%d)", idx + 1);
                                                 System.out.print(String.valueOf(df.format(resultM.getElement(j, i)))
-                                                        + String.format("x_%d", idx));
+                                                        + String.format("(x_%d)", idx + 1));
                                             } else {
                                                 output += String.valueOf(df.format(resultM.getElement(j, i)))
-                                                        + String.format("x_%d", idx)
+                                                        + String.format("(x_%d)", idx + 1)
                                                         + " + ";
                                                 System.out
                                                         .print(String.valueOf(df.format(resultM.getElement(j, i)))
-                                                                + String.format("x_%d", idx)
+                                                                + String.format("(x_%d)", idx + 1)
                                                                 + " + ");
                                             }
                                             idx++;
@@ -376,8 +376,8 @@ public class Main {
                                         int idx = 0;
                                         for (int i = 0; i < col - 1; i++) {
                                             if (i == j) {
-                                                output += String.format("x_%d", idx);
-                                                System.out.print(String.format("x_%d", idx));
+                                                output += String.format("x_%d", idx + 1);
+                                                System.out.print(String.format("x_%d", idx + 1));
                                                 break;
                                             }
                                             idx++;
