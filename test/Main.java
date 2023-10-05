@@ -14,7 +14,7 @@ import java.lang.Math;
 public class Main {
     private static void welcome() {
         System.out.println("Selamat Datang di Program Tugas Besar I\n"
-                + "Mata Kuliah IF2123 Aljabar Linier dan Geometri Tahun 2023/2024\n");
+                + "Mata Kuliah IF2123 Aljabar Linier dan Geometri Tahun 2023/2024");
 
     }
 
@@ -43,16 +43,19 @@ public class Main {
                     + "5. Kembali\n");
             System.out.printf("Masukkan metode pilihan Anda > ");
 
-            Scanner scanSubMenu2 = new Scanner(System.in);
-            int pilSubMenu2 = scanSubMenu2.nextInt();
+            Scanner scanSubMenu1 = new Scanner(System.in);
+            int pilSubMenu1 = scanSubMenu1.nextInt();
 
-            if (pilSubMenu2 == 1 || pilSubMenu2 == 2 || pilSubMenu2 == 3 || pilSubMenu2 == 4 || pilSubMenu2 == 5) {
-                switch (pilSubMenu2) {
+            if (pilSubMenu1 == 1 || pilSubMenu1 == 2 || pilSubMenu1 == 3 || pilSubMenu1 == 4 || pilSubMenu1 == 5) {
+                switch (pilSubMenu1) {
+                    case 5:
+                        exit = true;
+                        break;
                     case 1:
                         boolean isFile = false;
 
                         System.out.printf("Masukan dari terminal (T) atau file (F) > ");
-                        String input = scanSubMenu2.next().toUpperCase();
+                        String input = scanSubMenu1.next().toUpperCase();
 
                         if (input.equals("F")) {
                             isFile = true;
@@ -64,7 +67,7 @@ public class Main {
                         Matrix M = new Matrix(0, 0);
                         if (isFile) {
                             System.out.printf("Masukkan nama file: ");
-                            String pathToFile = scanSubMenu2.next();
+                            String pathToFile = scanSubMenu1.next();
 
                             M = M.readMatrixFromFile(pathToFile);
 
@@ -76,11 +79,11 @@ public class Main {
                             col = M.getCol();
                         } else {
                             System.out.print("Masukkan jumlah baris: ");
-                            row = scanSubMenu2.nextInt();
+                            row = scanSubMenu1.nextInt();
                             System.out.print("Masukkan jumlah kolom: ");
-                            col = scanSubMenu2.nextInt();
+                            col = scanSubMenu1.nextInt();
                             M = new Matrix(row, col);
-                            M.readMatrix(scanSubMenu2);
+                            M.readMatrix(scanSubMenu1);
                         }
 
                         System.out.println("");
@@ -176,7 +179,7 @@ public class Main {
                         isFile = false;
 
                         System.out.printf("Masukan dari terminal (T) atau file (F) > ");
-                        input = scanSubMenu2.next().toUpperCase();
+                        input = scanSubMenu1.next().toUpperCase();
 
                         if (input.equals("F")) {
                             isFile = true;
@@ -188,7 +191,7 @@ public class Main {
                         M = new Matrix(0, 0);
                         if (isFile) {
                             System.out.printf("Masukkan nama file: ");
-                            String pathToFile = scanSubMenu2.next();
+                            String pathToFile = scanSubMenu1.next();
 
                             M = M.readMatrixFromFile(pathToFile);
 
@@ -200,11 +203,11 @@ public class Main {
                             col = M.getCol();
                         } else {
                             System.out.print("Masukkan jumlah baris: ");
-                            row = scanSubMenu2.nextInt();
+                            row = scanSubMenu1.nextInt();
                             System.out.print("Masukkan jumlah kolom: ");
-                            col = scanSubMenu2.nextInt();
+                            col = scanSubMenu1.nextInt();
                             M = new Matrix(row, col);
-                            M.readMatrix(scanSubMenu2);
+                            M.readMatrix(scanSubMenu1);
                         }
 
                         System.out.println("");
@@ -300,7 +303,7 @@ public class Main {
                         isFile = false;
 
                         System.out.printf("Masukan dari terminal (T) atau file (F) > ");
-                        input = scanSubMenu2.next().toUpperCase();
+                        input = scanSubMenu1.next().toUpperCase();
 
                         if (input.equals("F")) {
                             isFile = true;
@@ -315,7 +318,7 @@ public class Main {
 
                         if (isFile) {
                             System.out.printf("Masukkan nama file: ");
-                            String pathToFile = scanSubMenu2.next();
+                            String pathToFile = scanSubMenu1.next();
 
                             M = M.readMatrixFromFile(pathToFile);
 
@@ -327,20 +330,21 @@ public class Main {
                             col = M.getCol();
                         } else {
                             System.out.print("Masukkan jumlah baris: ");
-                            row = scanSubMenu2.nextInt();
+                            row = scanSubMenu1.nextInt();
                             System.out.print("Masukkan jumlah kolom: ");
-                            col = scanSubMenu2.nextInt();
+                            col = scanSubMenu1.nextInt();
                             M = new Matrix(row, col);
-                            M.readMatrix(scanSubMenu2);
+                            M.readMatrix(scanSubMenu1);
                         }
-                        A = new Matrix(M.getRow(), M.getCol()-1);
-                        for (int i = 0; i < A.getRow(); i++){
+
+                        A = new Matrix(row, col-1);
+                        for (int i = 0; i < row; i++){
                             for (int j = 0; j < A.getCol(); j++){
                                 A.setElement(i, j, M.getElement(i, j));
                             }
                         }
 
-                        B = new Matrix(M.getRow(), 1);
+                        B = new Matrix(row, 1);
                         for (int i = 0; i < B.getRow(); i++){
                             B.setElement(i, 0, M.getElement(i, M.getCol()-1));
                         }
@@ -349,7 +353,7 @@ public class Main {
 
                         Matrix result = new MatriksBalikan().SPLInverse(A, B);
                         if (result == null) {
-                            System.out.println("-> Gagal Menghitung Solusi! Matriks A Tidak Memiliki Balikan\n");
+                            System.out.println("-> Gagal Menghitung Solusi! Matriks A Tidak Memiliki Balikan");
                         } else {
                             System.out.println("-> Solusi SPL:");
                             for (int i = 0; i < row; i++) {
@@ -362,7 +366,7 @@ public class Main {
                         isFile = false;
 
                         System.out.printf("Masukan dari terminal (T) atau file (F) > ");
-                        input = scanSubMenu2.next().toUpperCase();
+                        input = scanSubMenu1.next().toUpperCase();
 
                         if (input.equals("F")) {
                             isFile = true;
@@ -374,7 +378,7 @@ public class Main {
                         Matrix M1 = new Matrix(0, 0);
                         if (isFile) {
                             System.out.printf("Masukkan nama file: ");
-                            String pathToFile = scanSubMenu2.next();
+                            String pathToFile = scanSubMenu1.next();
 
                             M1 = M1.readMatrixFromFile(pathToFile);
 
@@ -391,9 +395,9 @@ public class Main {
                             }
                         } else {
                             System.out.print("Masukkan jumlah baris: ");
-                            row = scanSubMenu2.nextInt();
+                            row = scanSubMenu1.nextInt();
                             System.out.print("Masukkan jumlah kolom: ");
-                            col = scanSubMenu2.nextInt();
+                            col = scanSubMenu1.nextInt();
 
                             if (col - row != 1) {
                                 System.out.println("-> Tidak bisa dihitung menggunakan metode Cramer\n");
@@ -401,7 +405,7 @@ public class Main {
                             }
 
                             M1 = new Matrix(row, col);
-                            M1.readMatrix(scanSubMenu2);
+                            M1.readMatrix(scanSubMenu1);
                         }
 
                         System.out.println("");
@@ -414,9 +418,6 @@ public class Main {
                             System.out.println("");
                         }
 
-                        break;
-                    case 5:
-                        exit = true;
                         break;
                 }
             } else {
@@ -440,62 +441,63 @@ public class Main {
             int pilSubMenu2 = scanSubMenu2.nextInt();
 
             if (pilSubMenu2 == 1 || pilSubMenu2 == 2 || pilSubMenu2 == 3) {
-                if (pilSubMenu2 == 3) {
-                    exit = true;
-                }
-                else {
-                    boolean isFile = false;
-
-                    System.out.printf("Masukan dari terminal (T) atau file (F) > ");
-                    String input = scanSubMenu2.next().toUpperCase();
-
-                    if (input.equals("F")) {
-                        isFile = true;
-                    } else if (!input.equals("F") && !input.equals("T")) {
-                        System.out.println("Masukan TIDAK VALID\n");
+                switch (pilSubMenu2) {
+                    case 3:
+                        exit = true;
                         break;
-                    }
+                    default:
+                        boolean isFile = false;
 
-                    Matrix A = new Matrix(0, 0);
-                    if (isFile) {
-                        System.out.printf("Masukkan nama file: ");
-                        String pathToFile = scanSubMenu2.next();
+                        System.out.printf("Masukan dari terminal (T) atau file (F) > ");
+                        String input = scanSubMenu2.next().toUpperCase();
 
-                        A = A.readMatrixFromFile(pathToFile);
-
-                        if (A == null) {
+                        if (input.equals("F")) {
+                            isFile = true;
+                        } else if (!input.equals("F") && !input.equals("T")) {
+                            System.out.println("Masukan TIDAK VALID\n");
                             break;
                         }
 
-                        row = A.getRow();
-                        col = A.getCol();
-                    } else {
-                        System.out.print("Masukkan jumlah baris: ");
-                        row = scanSubMenu2.nextInt();
-                        System.out.print("Masukkan jumlah kolom: ");
-                        col = scanSubMenu2.nextInt();
+                        Matrix A = new Matrix(0, 0);
+                        if (isFile) {
+                            System.out.printf("Masukkan nama file: ");
+                            String pathToFile = scanSubMenu2.next();
 
-                        A = new Matrix(row, col);
-                        A.readMatrix(scanSubMenu2);
-                    }
+                            A = A.readMatrixFromFile(pathToFile);
 
-                    System.out.println("");
+                            if (A == null) {
+                                break;
+                            }
 
-                    if (A.isSquareMatrix()) {
-                        if (pilSubMenu2 == 1) {
-                            double result = new Kofaktor().detKofaktor(A);
-                            A.displayMatrix();
-                            System.out.println("-> Determinan: " + result + "\n");
+                            row = A.getRow();
+                            col = A.getCol();
                         } else {
-                            double result = ReduksiBaris.determinan(A);
-                            A.displayMatrix();
-                            System.out.println("-> Determinan: " + result + "\n");
+                            System.out.print("Masukkan jumlah baris: ");
+                            row = scanSubMenu2.nextInt();
+                            System.out.print("Masukkan jumlah kolom: ");
+                            col = scanSubMenu2.nextInt();
+
+                            A = new Matrix(row, col);
+                            A.readMatrix(scanSubMenu2);
+                        }
+
+                        System.out.println("");
+
+                        if (A.isSquareMatrix()) {
+                            if (pilSubMenu2 == 1) {
+                                double result = new Kofaktor().detKofaktor(A);
+                                A.displayMatrix();
+                                System.out.println("-> Determinan: " + result + "\n");
+                            } else {
+                                double result = ReduksiBaris.determinan(A);
+                                A.displayMatrix();
+                                System.out.println("-> Determinan: " + result + "\n");
+                            }
+                        }
+                        else {
+                            System.out.printf("Gagal!\nMatriks masukan BUKANLAH MATRIKS PERSEGI\n");
                         }
                     }
-                    else {
-                        System.out.printf("Matriks Masukan BUKANLAH MATRIKS PERSEGI\n");
-                    }
-                }
             }
             else {
                 System.out.printf("Masukan TIDAK VALID\n");
@@ -518,70 +520,74 @@ public class Main {
             int pilSubMenu2 = scanSubMenu3.nextInt();
 
             if (pilSubMenu2 == 1 || pilSubMenu2 == 2 || pilSubMenu2 == 3) {
-                if (pilSubMenu2 == 3) {
-                    exit = true;
-                } else {
-                    boolean isFile = false;
-
-                    System.out.printf("Masukan dari terminal (T) atau file (F) > ");
-                    String input = scanSubMenu3.next().toUpperCase();
-
-                    if (input.equals("F")) {
-                        isFile = true;
-                    } else if (!input.equals("F") && !input.equals("T")) {
-                        System.out.println("Masukan TIDAK VALID\n");
+                switch (pilSubMenu2) {
+                    case 3:
+                        exit = true;
                         break;
-                    }
+                    default:
+                        boolean isFile = false;
 
-                    Matrix A = new Matrix(0, 0);
-                    if (isFile) {
-                        System.out.printf("Masukkan nama file: ");
-                        String pathToFile = scanSubMenu3.next();
+                        System.out.printf("Masukan dari terminal (T) atau file (F) > ");
+                        String input = scanSubMenu3.next().toUpperCase();
 
-                        A = A.readMatrixFromFile(pathToFile);
-
-                        if (A == null) {
+                        if (input.equals("F")) {
+                            isFile = true;
+                        } else if (!input.equals("F") && !input.equals("T")) {
+                            System.out.println("Masukan TIDAK VALID\n");
                             break;
                         }
 
-                        row = A.getRow();
-                        col = A.getCol();
-                    } else {
-                        System.out.print("Masukkan jumlah baris: ");
-                        row = scanSubMenu3.nextInt();
-                        System.out.print("Masukkan jumlah kolom: ");
-                        col = scanSubMenu3.nextInt();
+                        Matrix A = new Matrix(0, 0);
+                        if (isFile) {
+                            System.out.printf("Masukkan nama file: ");
+                            String pathToFile = scanSubMenu3.next();
 
-                        A = new Matrix(row, col);
-                        A.readMatrix(scanSubMenu3);
-                    }
+                            A = A.readMatrixFromFile(pathToFile);
 
-                    System.out.println("");
+                            if (A == null) {
+                                break;
+                            }
 
-                    if (A.isSquareMatrix()) {
-                        if (pilSubMenu2 == 1) {
-                            Matrix result = new Adjoin().inverseAdjoin(A);
-                            if (result == null) {
-                                System.out.println("-> Tidak Memiliki Matriks Balikan\n");
-                            } else {
-                                System.out.println("-> Hasil Matriks Balikan:");
-                                result.displayMatrix();
+                            row = A.getRow();
+                            col = A.getCol();
+                        } else {
+                            System.out.print("Masukkan jumlah baris: ");
+                            row = scanSubMenu3.nextInt();
+                            System.out.print("Masukkan jumlah kolom: ");
+                            col = scanSubMenu3.nextInt();
+
+                            A = new Matrix(row, col);
+                            A.readMatrix(scanSubMenu3);
+                        }
+
+                        System.out.println("");
+
+                        if (A.isSquareMatrix()) {
+                            if (pilSubMenu2 == 1) {
+                                Matrix result = new Adjoin().inverseAdjoin(A);
+                                if (result == null) {
+                                    System.out.println("-> Tidak Memiliki Matriks Balikan\n");
+                                } else {
+                                    System.out.println("-> Hasil Matriks Balikan:");
+                                    result.displayMatrix();
+                                }
+                            }
+                            else {
+                                Matrix result = new BalikanGaussJordan().balikanGaussJordan(A);
+                                if (result == null) {
+                                    System.out.println("-> Tidak Memiliki Matriks Balikan\n");
+                                } else {
+                                    System.out.println("-> Hasil Matriks Balikan:");
+                                    result.displayMatrix();
+                                }
                             }
                         }
                         else {
-                            Matrix result = new BalikanGaussJordan().balikanGaussJordan(A);
-                            if (result == null) {
-                                System.out.println("-> Tidak Memiliki Matriks Balikan\n");
-                            } else {
-                                System.out.println("-> Hasil Matriks Balikan:");
-                                result.displayMatrix();
-                            }
+                            System.out.printf("Matriks Masukan BUKANLAH MATRIKS PERSEGI\n");
                         }
-                    } else {
-                        System.out.printf("Matriks Masukan BUKANLAH MATRIKS PERSEGI\n");
-                    }
                 }
-            } else {
+            }
+            else {
                 System.out.printf("Masukan TIDAK VALID\n");
             }
         }
@@ -638,7 +644,6 @@ public class Main {
 
                 A = new Matrix(row, 2);
                 A.readMatrix(scanInterpol);
-                System.out.println("");
             }
 
             System.out.println("");
@@ -656,7 +661,7 @@ public class Main {
                 } else if (i == 1) {
                     System.out.print(result.getElement(i, result.getCol() - 1) + "(x)");
                 } else {
-                    System.out.print(result.getElement(i, result.getCol() - 1) + "(x" + i + ")");
+                    System.out.print(result.getElement(i, result.getCol() - 1) + "(x^" + i + ")");
                 }
 
                 if (i != result.getRow() - 1) {
@@ -671,22 +676,23 @@ public class Main {
                     for (int i = 0; i < uji.getRow(); i ++){
                         est = 0.0;
                         for (int j = 0; j < result.getRow(); j++) {
-                            est = est + result.getElement(j, result.getCol() - 1) * (Math.pow(uji.getElement(i, 0), i));
+                            est = est + result.getElement(j, result.getCol() - 1) * (Math.pow(uji.getElement(i, 0), j));
                         }
 
-                        System.out.println("p(" + uji.getElement(i, 0) + ") = " + Double.parseDouble(df.format(est)));
+                        System.out.println("p" + (row - 1) + "(" + uji.getElement(i, 0) + ") = " + Double.parseDouble(df.format(est)));
                     }
                     next = false;
                 }
                 else{
-                    System.out.println("\nMenguji Titik");
-                    System.out.println("1. Ya\n"
-                            + "2. Tidak");
-                    System.out.printf("Masukkan (1 / 2) > ");
+                    System.out.printf("\nPrediksi nilai titik Ya (Y) atau Tidak (T) > ");
+                    String ujiInterpol = scanInterpol.next().toUpperCase();
 
-                    int ujiInterpol = scanInterpol.nextInt();
+                    if (!input.equals("Y") && !input.equals("T")) {
+                        System.out.println("Masukan TIDAK VALID\n");
+                        break;
+                    }
 
-                    if (ujiInterpol == 1) {
+                    if (ujiInterpol.equals("Y")) {
                         est = 0.0;
 
                         System.out.print("\nMasukkan titik (x) yang ingin diestimasi: ");
@@ -696,205 +702,214 @@ public class Main {
                             est = est + result.getElement(i, result.getCol() - 1) * (Math.pow(x, i));
                         }
 
-                        System.out.println("p(" + x + ") = " + Double.parseDouble(df.format(est)));
+                        System.out.println("p" + (row - 1) + "(" + x + ") = " + Double.parseDouble(df.format(est)));
                     } else {
-                        next = false;
+                        break;
                     }
                 }
             }
-            System.out.println("");
             break;
         }
     }
 
-    private static void runBicubic(Scanner scan) {
-        BicubicSpline bicubic = new BicubicSpline();
-        Matrix X = bicubic.bicubicSpline();
+    private static void runBicubic() {
+        while (true){
+            BicubicSpline bicubic = new BicubicSpline();
+            Matrix X = bicubic.bicubicSpline();
+            boolean isFile = false;
 
-        boolean isFile = false;
+            Scanner scanBicubic = new Scanner(System.in);
 
-        System.out.printf("Masukan dari terminal (T) atau file (F) > ");
-        String input = scan.next().toUpperCase();
+            System.out.printf("Masukan dari terminal (T) atau file (F) > ");
+            String input = scanBicubic.next().toUpperCase();
 
-        if (input.equals("F")) {
-            isFile = true;
-        } else if (!input.equals("F") && !input.equals("T")) {
-            System.out.println("Masukan TIDAK VALID\n");
-            scan.close();
-            return;
-        }
+            if (input.equals("F")) {
+                isFile = true;
+            } else if (!input.equals("F") && !input.equals("T")) {
+                System.out.println("Masukan TIDAK VALID");
+                break;
+            }
 
-        Matrix A = new Matrix(0, 0);
-        Matrix y = new Matrix(16, 1);
-        double x1 = 0;
-        double y1 = 0;
-        if (isFile) {
-            System.out.printf("Masukkan nama file: ");
-            String pathToFile = scan.next();
+            Matrix A = new Matrix(0, 0);
+            Matrix y = new Matrix(16, 1);
+            double x1 = 0;
+            double y1 = 0;
+            if (isFile) {
+                System.out.printf("Masukkan nama file: ");
+                String pathToFile = scanBicubic.next();
 
-            try {
-                int row, col;
-                File file1 = new File(pathToFile);
-                Scanner scanner1 = new Scanner(file1);
-                row = 0;
-                col = 0;
-                while (row < 4) {
-                    String data = scanner1.nextLine();
-                    String[] array = data.split(" ");
-                    col = array.length;
-                    row += 1;
-                }
-                String data_xy = scanner1.nextLine();
-                String[] array_xy = data_xy.split(" ");
-                x1 = Double.parseDouble(array_xy[0]);
-                y1 = Double.parseDouble(array_xy[1]);
-                scanner1.close();
-
-                Matrix matrix = new Matrix(row, col);
-                File file2 = new File(pathToFile);
-                Scanner scanner2 = new Scanner(file2);
-                int mrow = 0;
-                while (mrow < row) {
-                    String data = scanner2.nextLine();
-                    String[] array = data.split(" ");
-                    for (int i = 0; i < array.length; i++) {
-                        matrix.setElement(mrow, i, Double.parseDouble(array[i]));
+                try {
+                    int row, col;
+                    File file1 = new File(pathToFile);
+                    Scanner scanner1 = new Scanner(file1);
+                    row = 0;
+                    col = 0;
+                    while (row < 4) {
+                        String data = scanner1.nextLine();
+                        String[] array = data.split(" ");
+                        col = array.length;
+                        row += 1;
                     }
-                    mrow += 1;
+                    String data_xy = scanner1.nextLine();
+                    String[] array_xy = data_xy.split(" ");
+                    x1 = Double.parseDouble(array_xy[0]);
+                    y1 = Double.parseDouble(array_xy[1]);
+                    scanner1.close();
+
+                    Matrix matrix = new Matrix(row, col);
+                    File file2 = new File(pathToFile);
+                    Scanner scanner2 = new Scanner(file2);
+                    int mrow = 0;
+                    while (mrow < row) {
+                        String data = scanner2.nextLine();
+                        String[] array = data.split(" ");
+                        for (int i = 0; i < array.length; i++) {
+                            matrix.setElement(mrow, i, Double.parseDouble(array[i]));
+                        }
+                        mrow += 1;
+                    }
+
+                    scanner2.close();
+
+                    A = matrix;
+                } catch (Exception e) {
+                    if (e.toString().contains("FileNotFoundException")) {
+                        System.out.println("File tidak ditemukan");
+                    } else {
+                        System.out.println("Input matriks tidak valid");
+                    }
+                    A = null;
                 }
 
-                scanner2.close();
-
-                A = matrix;
-            } catch (Exception e) {
-                if (e.toString().contains("FileNotFoundException")) {
-                    System.out.println("File tidak ditemukan");
-                } else {
-                    System.out.println("Input matriks tidak valid");
+                if (A == null) {
+                    scanBicubic.close();
+                    break;
                 }
-                A = null;
-            }
 
-            if (A == null) {
-                scan.close();
-                return;
-            }
-
-            int row = A.getRow();
-            int col = A.getCol();
-            int idx = 0;
-            for (int i = 0; i < row; i++) {
-                for (int j = 0; j < col; j++) {
-                    y.setElement(idx, 0, A.getElement(i, j));
-                    idx++;
+                int row = A.getRow();
+                int col = A.getCol();
+                int idx = 0;
+                for (int i = 0; i < row; i++) {
+                    for (int j = 0; j < col; j++) {
+                        y.setElement(idx, 0, A.getElement(i, j));
+                        idx++;
+                    }
                 }
+            } else {
+                y.readMatrix(scanBicubic);
+                x1 = scanBicubic.nextDouble();
+                y1 = scanBicubic.nextDouble();
+                System.out.println("");
             }
-        } else {
-            y.readMatrix(scan);
-            x1 = scan.nextDouble();
-            y1 = scan.nextDouble();
+
+            Matrix inv_A = new BalikanGaussJordan().balikanGaussJordan(X);
+            MatriksBalikan mb = new MatriksBalikan();
+            Matrix a = mb.multiplyMatrix(inv_A, y);
+            double z = bicubic.f(x1, y1, a);
+            System.out.println("z = " + z);
+            break;
         }
-
-        Matrix inv_A = new BalikanGaussJordan().balikanGaussJordan(X);
-        MatriksBalikan mb = new MatriksBalikan();
-        Matrix a = mb.multiplyMatrix(inv_A, y);
-        double z = bicubic.f(x1, y1, a);
-        System.out.println("z = " + z);
     }
 
     private static void runRegresi() {
-        int row;
-        int col;
-        double x;
-        double hasil;
-        boolean next = true;
+        while (true){
+            int row;
+            int col;
+            double x;
+            double hasil;
+            boolean next = true;
 
-        DecimalFormat df = new DecimalFormat("#.####");
+            DecimalFormat df = new DecimalFormat("#.####");
 
-        System.out.println("\nMengregresi Linear Berganda Sampel");
-        System.out.println("");
+            System.out.println("\nMeregresi Linear Berganda Sampel");
+            System.out.println("");
 
-        Scanner scanRegresi = new Scanner(System.in);
+            Scanner scanRegresi = new Scanner(System.in);
 
-        boolean isFile = false;
+            boolean isFile = false;
 
-        System.out.printf("Masukan dari terminal (T) atau file (F) > ");
-        String input = scanRegresi.next().toUpperCase();
+            System.out.printf("Masukan dari terminal (T) atau file (F) > ");
+            String input = scanRegresi.next().toUpperCase();
 
-        if (input.equals("F")) {
-            isFile = true;
-        } else if (!input.equals("F") && !input.equals("T")) {
-            System.out.println("Masukan TIDAK VALID\n");
-            scanRegresi.close();
-            return;
-        }
-
-        Matrix A = new Matrix(0, 0);
-        if (isFile) {
-            System.out.printf("Masukkan nama file: ");
-            String pathToFile = scanRegresi.next();
-
-            A = A.readMatrixFromFile(pathToFile);
-
-            if (A == null) {
-                scanRegresi.close();
-                return;
+            if (input.equals("F")) {
+                isFile = true;
+            } else if (!input.equals("F") && !input.equals("T")) {
+                System.out.println("Masukan TIDAK VALID");
+                break;
             }
 
-            row = A.getRow();
-            col = A.getCol();
-        } else {
-            System.out.print("Masukkan jumlah peubah x: ");
-            col = scanRegresi.nextInt();
-            col++;
-            System.out.print("");
-            System.out.print("Masukkan jumlah sampel: ");
-            row = scanRegresi.nextInt();
+            Matrix A = new Matrix(0, 0);
+            if (isFile) {
+                System.out.printf("Masukkan nama file: ");
+                String pathToFile = scanRegresi.next();
 
-            A = new Matrix(row, col);
-            A.readMatrix(scanRegresi);
-        }
+                A = A.readMatrixFromFile(pathToFile);
 
-        System.out.println("");
-
-        Matrix result = new RegresiLinearBerganda().regresiLinear(A);
-        for (int i = 0; i < result.getRow(); i++) {
-            result.setElement(i, result.getCol() - 1,
-                    Double.parseDouble(df.format(result.getElement(i, result.getCol() - 1))));
-        }
-
-        System.out.println("f(x) = ");
-        for (int i = 0;i < result.getRow();i++){
-            if (i == 0){
-                System.out.print(result.getElement(i, result.getCol()-1)+" + ");
-            } else if (i == result.getRow()-1){
-                System.out.print(result.getElement(i, result.getCol()-1)+"x"+i);
-            } else {
-                System.out.print(result.getElement(i, result.getCol()-1)+"x"+i+" + ");
-            }
-        }
-        
-        while (next) {
-            System.out.println("\nEstimasi Nilai (y)");
-            System.out.println("1. Ya\n"
-                    + "2. Tidak");
-            System.out.printf("Masukkan (1 / 2) > ");
-
-            int ujiRegresi = scanRegresi.nextInt();
-
-            if (ujiRegresi == 1) {
-                hasil = result.getElement(0, result.getCol()-1);
-                for (int i = 1; i < result.getCol()-2;i++){
-                    System.out.print("\nMasukkan nilai x"+i+": ");
-                    x = scanRegresi.nextDouble();
-                    hasil += x;
+                if (A == null) {
+                    break;
                 }
-                System.out.println("f(x) = " + Double.parseDouble(df.format(hasil)));
+
+                row = A.getRow();
+                col = A.getCol();
             } else {
-                next = false;
+                System.out.print("Masukkan jumlah peubah x: ");
+                col = scanRegresi.nextInt();
+                col++;
+                System.out.print("");
+                System.out.print("Masukkan jumlah sampel: ");
+                row = scanRegresi.nextInt();
+
+                A = new Matrix(row, col);
+                A.readMatrix(scanRegresi);
             }
+
+            System.out.println("");
+
+            Matrix result = new RegresiLinearBerganda().regresiLinear(A);
+            for (int i = 0; i < result.getRow(); i++) {
+                result.setElement(i, result.getCol() - 1,
+                        Double.parseDouble(df.format(result.getElement(i, result.getCol() - 1))));
+            }
+
+            System.out.print("f(x) = ");
+            for (int i = 0; i < result.getRow(); i++) {
+                if (i == 0) {
+                    System.out.print(result.getElement(i, result.getCol()-1));
+                } else if (i == 1) {
+                    System.out.print(result.getElement(i, result.getCol() - 1) + "(x)");
+                } else {
+                    System.out.print(result.getElement(i, result.getCol() - 1) + "(x^" + i + ")");
+                }
+
+                if (i != result.getRow() - 1) {
+                    System.out.print(" + ");
+                }
+            }
+            System.out.println("");
+            
+            while (next) {
+                System.out.printf("\nPrediksi nilai titik Ya (Y) atau Tidak (T) > ");
+                String ujiRegresi = scanRegresi.next().toUpperCase();
+
+                if (!ujiRegresi.equals("Y") && !ujiRegresi.equals("T")) {
+                    System.out.println("Masukan TIDAK VALID");
+                    break;
+                }
+
+                if (ujiRegresi.equals("Y")) {
+                    hasil = result.getElement(0, result.getCol()-1);
+                    for (int i = 1; i < result.getCol()-2;i++){
+                        System.out.print("Masukkan nilai x"+i+": ");
+                        x = scanRegresi.nextDouble();
+                        hasil += x;
+                    }
+                    System.out.println("f(x) = " + Double.parseDouble(df.format(hasil)));
+                } else {
+                    break;
+                }
+            }
+            break;
         }
-        System.out.println("");
     }
 
     private static void credit() {
@@ -930,7 +945,7 @@ public class Main {
                     runInterpol();
                     break;
                 case 5:
-                    runBicubic(scanMenu);
+                    runBicubic();
                     break;
                 case 6:
                     runRegresi();
