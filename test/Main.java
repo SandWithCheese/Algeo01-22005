@@ -353,7 +353,7 @@ public class Main {
 
                         Matrix result = new MatriksBalikan().SPLInverse(A, B);
                         if (result == null) {
-                            System.out.println("-> Gagal Menghitung Solusi! Matriks A Tidak Memiliki Balikan");
+                            System.out.println("-> Gagal menghitung solusi! Matriks A tak memiliki balikan");
                         } else {
                             System.out.println("-> Solusi SPL:");
                             for (int i = 0; i < row; i++) {
@@ -412,11 +412,16 @@ public class Main {
 
                         double[] cramer = new Cramer().cramer(M1);
 
-                        System.out.println("-> Solusi SPL:");
-                        for (int i = 0; i < row; i++) {
-                            System.out.printf("x%d = %f", i + 1, cramer[i]);
-                            System.out.println("");
+                        if (cramer != null){
+                            System.out.println("-> Solusi SPL:");
+                            for (int i = 0; i < row; i++) {
+                                System.out.printf("x%d = %f", i + 1, cramer[i]);
+                                System.out.println("");
+                            }
                         }
+                        else{
+                            System.out.println("-> Gagal menghitung solusi! Matriks A tak memiliki balikan");
+                        }                       
 
                         break;
                 }

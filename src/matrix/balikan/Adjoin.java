@@ -5,7 +5,7 @@ import matrix.determinan.Kofaktor;
 
 public class Adjoin {
     /**
-     * Mengembalikan matriks minor dari matriks M
+     * Mengembalikan matriks kofaktor dari matriks M
      */
     public Matrix MtxKofaktor(Matrix M) {
         Matrix resultCofactor = new Matrix(M.getRow(), M.getCol());
