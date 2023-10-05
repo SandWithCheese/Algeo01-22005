@@ -36,6 +36,7 @@ public class Main {
     private static void subMenu1() {
         boolean exit = false;
         int row, col;
+        DecimalFormat df = new DecimalFormat("#.####");
 
         while (exit == false) {
             System.out.println("\nPenyelesaian Sistem Persamaan Linier");
@@ -455,8 +456,8 @@ public class Main {
                             output += "-> Solusi SPL:\n";
                             System.out.println("-> Solusi SPL:");
                             for (int i = 0; i < row; i++) {
-                                output += String.format("x%d = %f", i + 1, result.getElement(i, 0)) + "\n";
-                                System.out.printf("x%d = %f", i + 1, result.getElement(i, 0));
+                                output += String.format("x_" + (i + 1) + " = " + Double.parseDouble(df.format(result.getElement(i, 0)))) + "\n";
+                                System.out.printf("x_" + (i + 1) + " = " + Double.parseDouble(df.format(result.getElement(i, 0))));
                                 System.out.println("");
                             }
                         }
@@ -575,6 +576,7 @@ public class Main {
     private static void subMenu2() {
         boolean exit = false;
         int row, col;
+        DecimalFormat df = new DecimalFormat("#.####");
 
         while (exit == false) {
             System.out.println("\nMenghitung Determinan Matriks Persegi");
@@ -634,13 +636,13 @@ public class Main {
                             if (pilSubMenu2 == 1) {
                                 double result = new Kofaktor().detKofaktor(A);
                                 A.displayMatrix();
-                                output += "-> Determinan: " + result + "\n";
-                                System.out.println("-> Determinan: " + result + "\n");
+                                output += "-> Determinan: " + Double.parseDouble(df.format(result)) + "\n";
+                                System.out.println("-> Determinan: " + Double.parseDouble(df.format(result)) + "\n");
                             } else {
                                 double result = ReduksiBaris.determinan(A);
                                 A.displayMatrix();
-                                output += "-> Determinan: " + result + "\n";
-                                System.out.println("-> Determinan: " + result + "\n");
+                                output += "-> Determinan: " + Double.parseDouble(df.format(result)) + "\n";
+                                System.out.println("-> Determinan: " + Double.parseDouble(df.format(result)) + "\n");
                             }
                         } else {
                             output += "Matriks masukan BUKANLAH MATRIKS PERSEGI\n";
@@ -676,6 +678,7 @@ public class Main {
     private static void subMenu3() {
         boolean exit = false;
         int row, col;
+        DecimalFormat df = new DecimalFormat("#.####");
 
         while (exit == false) {
             System.out.println("\nMenghitung Balikan Matriks Persegi");
@@ -741,7 +744,7 @@ public class Main {
                                     output += "-> Hasil Matriks Balikan:\n";
                                     for (int i = 0; i < result.getRow(); i++) {
                                         for (int j = 0; j < result.getCol(); j++) {
-                                            output += String.valueOf(result.getElement(i, j));
+                                            output += String.valueOf(Double.parseDouble(df.format(result.getElement(i, j))));
                                             if (j != result.getCol() - 1) {
                                                 output += " ";
                                             }
@@ -760,7 +763,7 @@ public class Main {
                                     output += "-> Hasil Matriks Balikan:\n";
                                     for (int i = 0; i < result.getRow(); i++) {
                                         for (int j = 0; j < result.getCol(); j++) {
-                                            output += String.valueOf(result.getElement(i, j));
+                                            output += String.valueOf(Double.parseDouble(df.format(result.getElement(i, j))));
                                             if (j != result.getCol() - 1) {
                                                 output += " ";
                                             }

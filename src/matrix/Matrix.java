@@ -2,6 +2,8 @@ package matrix;
 
 import java.util.Scanner;
 import java.io.File;
+import java.text.DecimalFormat;
+
 
 public class Matrix {
     private final int row;
@@ -151,10 +153,11 @@ public class Matrix {
      * Menampilkan matriks pada terminal
      */
     public void displayMatrix() {
+        DecimalFormat df = new DecimalFormat("#.####");
         for (int i = 0; i < this.row; i++) {
             System.out.print("[");
             for (int j = 0; j < this.col; j++) {
-                System.out.print(data[i][j]);
+                System.out.print(Double.parseDouble(df.format(data[i][j])));
                 if (j != this.col - 1) {
                     System.out.print(", ");
                 }
