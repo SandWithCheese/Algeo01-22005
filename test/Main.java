@@ -112,7 +112,7 @@ public class Main {
 
                         resultM.displayMatrix();
                         System.out.println("");
-                        DecimalFormat df = new DecimalFormat("#.####");
+                        df = new DecimalFormat("#.####");
 
                         output = "";
                         if (isSolvable) {
@@ -135,23 +135,31 @@ public class Main {
                                     int idx = 0;
                                     for (int i = 0; i < col - 1; i++) {
                                         if (i == col - 2) {
-                                            output += String.valueOf(Double.parseDouble(df.format(resultM.getElement(j, i))))
+                                            output += String
+                                                    .valueOf(Double.parseDouble(df.format(resultM.getElement(j, i))))
                                                     + String.format("x_%d", idx);
-                                            System.out.print(String.valueOf(Double.parseDouble(df.format(resultM.getElement(j, i))))
+                                            System.out.print(String
+                                                    .valueOf(Double.parseDouble(df.format(resultM.getElement(j, i))))
                                                     + String.format("x_%d", idx));
                                         } else {
-                                            output += String.valueOf(Double.parseDouble(df.format(resultM.getElement(j, i))))
+                                            output += String
+                                                    .valueOf(Double.parseDouble(df.format(resultM.getElement(j, i))))
                                                     + String.format("x_%d", idx)
                                                     + " + ";
                                             System.out
-                                                    .print(String.valueOf(Double.parseDouble(df.format(resultM.getElement(j, i))))
+                                                    .print(String.valueOf(
+                                                            Double.parseDouble(df.format(resultM.getElement(j, i))))
                                                             + String.format("x_%d", idx)
                                                             + " + ");
                                         }
                                         idx++;
                                     }
-                                    output += " = " + String.valueOf(Double.parseDouble(df.format(resultM.getElement(j, col - 1)))) + "\n";
-                                    System.out.print(" = " + String.valueOf(Double.parseDouble(df.format(resultM.getElement(j, col - 1)))));
+                                    output += " = "
+                                            + String.valueOf(
+                                                    Double.parseDouble(df.format(resultM.getElement(j, col - 1))))
+                                            + "\n";
+                                    System.out.print(" = " + String
+                                            .valueOf(Double.parseDouble(df.format(resultM.getElement(j, col - 1)))));
                                     System.out.println("");
                                 }
                             } else {
@@ -162,23 +170,31 @@ public class Main {
                                         int idx = 0;
                                         for (int i = 0; i < col - 1; i++) {
                                             if (i == col - 2) {
-                                                output += String.valueOf(Double.parseDouble(df.format(resultM.getElement(j, i))))
+                                                output += String.valueOf(
+                                                        Double.parseDouble(df.format(resultM.getElement(j, i))))
                                                         + String.format("x_%d", idx);
-                                                System.out.print(String.valueOf(Double.parseDouble(df.format(resultM.getElement(j, i))))
+                                                System.out.print(String.valueOf(
+                                                        Double.parseDouble(df.format(resultM.getElement(j, i))))
                                                         + String.format("x_%d", idx));
                                             } else {
-                                                output += String.valueOf(Double.parseDouble(df.format(resultM.getElement(j, i))))
+                                                output += String.valueOf(
+                                                        Double.parseDouble(df.format(resultM.getElement(j, i))))
                                                         + String.format("x_%d", idx)
                                                         + " + ";
                                                 System.out
-                                                        .print(String.valueOf(Double.parseDouble(df.format(resultM.getElement(j, i))))
+                                                        .print(String.valueOf(
+                                                                Double.parseDouble(df.format(resultM.getElement(j, i))))
                                                                 + String.format("x_%d", idx)
                                                                 + " + ");
                                             }
                                             idx++;
                                         }
-                                        output += " = " + String.valueOf(Double.parseDouble(df.format(resultM.getElement(j, col - 1)))) + "\n";
-                                        System.out.print(" = " + String.valueOf(Double.parseDouble(df.format(resultM.getElement(j, col - 1)))));
+                                        output += " = "
+                                                + String.valueOf(
+                                                        Double.parseDouble(df.format(resultM.getElement(j, col - 1))))
+                                                + "\n";
+                                        System.out.print(" = " + String.valueOf(
+                                                Double.parseDouble(df.format(resultM.getElement(j, col - 1)))));
                                         System.out.println("");
                                     }
                                 } else {
@@ -305,23 +321,23 @@ public class Main {
                                     int idx = 0;
                                     for (int i = 0; i < col - 1; i++) {
                                         if (i == col - 2) {
-                                            output += String.valueOf(resultM.getElement(j, i))
+                                            output += String.valueOf(df.format(resultM.getElement(j, i)))
                                                     + String.format("x_%d", idx);
-                                            System.out.print(String.valueOf(resultM.getElement(j, i))
+                                            System.out.print(String.valueOf(df.format(resultM.getElement(j, i)))
                                                     + String.format("x_%d", idx));
                                         } else {
-                                            output += String.valueOf(resultM.getElement(j, i))
+                                            output += String.valueOf(df.format(resultM.getElement(j, i)))
                                                     + String.format("x_%d", idx)
                                                     + " + ";
                                             System.out
-                                                    .print(String.valueOf(resultM.getElement(j, i))
+                                                    .print(String.valueOf(df.format(resultM.getElement(j, i)))
                                                             + String.format("x_%d", idx)
                                                             + " + ");
                                         }
                                         idx++;
                                     }
-                                    output += " = " + String.valueOf(resultM.getElement(j, col - 1)) + "\n";
-                                    System.out.print(" = " + String.valueOf(resultM.getElement(j, col - 1)));
+                                    output += " = " + String.valueOf(df.format(resultM.getElement(j, col - 1))) + "\n";
+                                    System.out.print(" = " + String.valueOf(df.format(resultM.getElement(j, col - 1))));
                                     System.out.println("");
                                 }
                             } else {
@@ -332,23 +348,25 @@ public class Main {
                                         int idx = 0;
                                         for (int i = 0; i < col - 1; i++) {
                                             if (i == col - 2) {
-                                                output += String.valueOf(resultM.getElement(j, i))
+                                                output += String.valueOf(df.format(resultM.getElement(j, i)))
                                                         + String.format("x_%d", idx);
-                                                System.out.print(String.valueOf(resultM.getElement(j, i))
+                                                System.out.print(String.valueOf(df.format(resultM.getElement(j, i)))
                                                         + String.format("x_%d", idx));
                                             } else {
-                                                output += String.valueOf(resultM.getElement(j, i))
+                                                output += String.valueOf(df.format(resultM.getElement(j, i)))
                                                         + String.format("x_%d", idx)
                                                         + " + ";
                                                 System.out
-                                                        .print(String.valueOf(resultM.getElement(j, i))
+                                                        .print(String.valueOf(df.format(resultM.getElement(j, i)))
                                                                 + String.format("x_%d", idx)
                                                                 + " + ");
                                             }
                                             idx++;
                                         }
-                                        output += " = " + String.valueOf(resultM.getElement(j, col - 1)) + "\n";
-                                        System.out.print(" = " + String.valueOf(resultM.getElement(j, col - 1)));
+                                        output += " = " + String.valueOf(df.format(resultM.getElement(j, col - 1)))
+                                                + "\n";
+                                        System.out.print(
+                                                " = " + String.valueOf(df.format(resultM.getElement(j, col - 1))));
                                         System.out.println("");
                                     }
                                 } else {
@@ -358,15 +376,16 @@ public class Main {
                                         int idx = 0;
                                         for (int i = 0; i < col - 1; i++) {
                                             if (i == j) {
-                                                output += String.valueOf(resultM.getElement(j, col - 1))
-                                                        + String.format("x_%d", idx);
+                                                output += String.format("x_%d", idx);
                                                 System.out.print(String.format("x_%d", idx));
                                                 break;
                                             }
                                             idx++;
                                         }
-                                        output += " = " + String.valueOf(resultM.getElement(j, col - 1)) + "\n";
-                                        System.out.print(" = " + String.valueOf(resultM.getElement(j, col - 1)));
+                                        output += " = " + String.valueOf(df.format(resultM.getElement(j, col - 1)))
+                                                + "\n";
+                                        System.out.print(
+                                                " = " + String.valueOf(df.format(resultM.getElement(j, col - 1))));
                                         System.out.println("");
                                     }
                                 }
@@ -457,8 +476,11 @@ public class Main {
                             output += "-> Solusi SPL:\n";
                             System.out.println("-> Solusi SPL:");
                             for (int i = 0; i < row; i++) {
-                                output += String.format("x_" + (i + 1) + " = " + Double.parseDouble(df.format(result.getElement(i, 0)))) + "\n";
-                                System.out.printf("x_" + (i + 1) + " = " + Double.parseDouble(df.format(result.getElement(i, 0))));
+                                output += String.format(
+                                        "x_" + (i + 1) + " = " + Double.parseDouble(df.format(result.getElement(i, 0))))
+                                        + "\n";
+                                System.out.printf("x_" + (i + 1) + " = "
+                                        + Double.parseDouble(df.format(result.getElement(i, 0))));
                                 System.out.println("");
                             }
                         }
@@ -538,8 +560,8 @@ public class Main {
                             output += "-> Solusi SPL:\n";
                             System.out.println("-> Solusi SPL:");
                             for (int i = 0; i < row; i++) {
-                                output += String.format("x%d = %f", i + 1, cramer[i]) + "\n";
-                                System.out.printf("x%d = %f", i + 1, cramer[i]);
+                                output += String.format("x_%d = %s", i + 1, df.format(cramer[i])) + "\n";
+                                System.out.printf("x_%d = %s", i + 1, df.format(cramer[i]));
                                 System.out.println("");
                             }
                         } else {
@@ -735,7 +757,7 @@ public class Main {
                         System.out.println("");
 
                         String output = "";
-                        DecimalFormat df = new DecimalFormat("#.####");
+                        df = new DecimalFormat("#.####");
                         if (A.isSquareMatrix()) {
                             if (pilSubMenu2 == 1) {
                                 Matrix result = new Adjoin().inverseAdjoin(A);
@@ -746,7 +768,8 @@ public class Main {
                                     output += "-> Hasil Matriks Balikan:\n";
                                     for (int i = 0; i < result.getRow(); i++) {
                                         for (int j = 0; j < result.getCol(); j++) {
-                                            output += String.valueOf(Double.parseDouble(df.format(result.getElement(i, j))));
+                                            output += String
+                                                    .valueOf(Double.parseDouble(df.format(result.getElement(i, j))));
                                             if (j != result.getCol() - 1) {
                                                 output += " ";
                                             }
@@ -765,7 +788,8 @@ public class Main {
                                     output += "-> Hasil Matriks Balikan:\n";
                                     for (int i = 0; i < result.getRow(); i++) {
                                         for (int j = 0; j < result.getCol(); j++) {
-                                            output += String.valueOf(Double.parseDouble(df.format(result.getElement(i, j))));
+                                            output += String
+                                                    .valueOf(Double.parseDouble(df.format(result.getElement(i, j))));
                                             if (j != result.getCol() - 1) {
                                                 output += " ";
                                             }
@@ -960,6 +984,7 @@ public class Main {
             BicubicSpline bicubic = new BicubicSpline();
             Matrix X = bicubic.bicubicSpline();
             boolean isFile = false;
+            DecimalFormat df = new DecimalFormat("#.####");
 
             Scanner scanBicubic = new Scanner(System.in);
 
@@ -1049,7 +1074,7 @@ public class Main {
             MatriksBalikan mb = new MatriksBalikan();
             Matrix a = mb.multiplyMatrix(inv_A, y);
             double z = bicubic.f(x1, y1, a);
-            System.out.println("z = " + z);
+            System.out.println("z = " + df.format(z));
 
             System.out.println("Simpan ke dalam file? (Y/N)");
             String save = scanBicubic.next().toUpperCase();
@@ -1063,7 +1088,7 @@ public class Main {
                 }
                 try {
                     FileWriter myWriter = new FileWriter(pathToFile);
-                    myWriter.write("z = " + z);
+                    myWriter.write("z = " + df.format(z));
                     myWriter.close();
                     System.out.println("Berhasil menyimpan ke dalam file");
                 } catch (IOException e) {
@@ -1140,7 +1165,7 @@ public class Main {
                 if (i == 0) {
                     output += result.getElement(i, result.getCol() - 1);
                     System.out.print(result.getElement(i, result.getCol() - 1));
-                } else if (i == result.getRow()-1) {
+                } else if (i == result.getRow() - 1) {
                     output += result.getElement(i, result.getCol() - 1) + "(x_" + i + ")";
                     System.out.print(result.getElement(i, result.getCol() - 1) + "(x_" + i + ")");
                 } else {
@@ -1171,7 +1196,7 @@ public class Main {
                     for (int i = 1; i < result.getCol() - 1; i++) {
                         System.out.print("Masukkan nilai x_" + i + ": ");
                         x = scanRegresi.nextDouble();
-                        x *= result.getElement(i, result.getCol()-1);
+                        x *= result.getElement(i, result.getCol() - 1);
                         hasil += x;
                     }
                     output += "f(x) = " + Double.parseDouble(df.format(hasil)) + "\n";
