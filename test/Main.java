@@ -9,7 +9,10 @@ import matrix.InterpolasiPolinom;
 import matrix.RegresiLinearBerganda;
 import java.text.DecimalFormat;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.lang.Math;
+import java.time.LocalDate;
 
 public class Main {
     private static void welcome() {
@@ -47,6 +50,9 @@ public class Main {
             int pilSubMenu1 = scanSubMenu1.nextInt();
 
             if (pilSubMenu1 == 1 || pilSubMenu1 == 2 || pilSubMenu1 == 3 || pilSubMenu1 == 4 || pilSubMenu1 == 5) {
+                String output = "";
+                String save = "";
+
                 switch (pilSubMenu1) {
                     case 5:
                         exit = true;
@@ -106,6 +112,7 @@ public class Main {
                         resultM.displayMatrix();
                         System.out.println("");
 
+                        output = "";
                         if (isSolvable) {
                             boolean isZeroMatrix = true;
                             for (int i = 0; i < col - 1; i++) {
@@ -120,61 +127,103 @@ public class Main {
                             }
 
                             if (isZeroMatrix) {
+                                output += "-> SPL memiliki banyak solusi\n";
                                 System.out.println("-> SPL memiliki banyak solusi\n");
                                 for (int j = 0; j < row; j++) {
-                                    char var = 'a';
+                                    int idx = 0;
                                     for (int i = 0; i < col - 1; i++) {
                                         if (i == col - 2) {
-                                            System.out.print(String.valueOf(resultM.getElement(j, i)) + var);
+                                            output += String.valueOf(resultM.getElement(j, i))
+                                                    + String.format("x_%d", idx);
+                                            System.out.print(String.valueOf(resultM.getElement(j, i))
+                                                    + String.format("x_%d", idx));
                                         } else {
+                                            output += String.valueOf(resultM.getElement(j, i))
+                                                    + String.format("x_%d", idx)
+                                                    + " + ";
                                             System.out
-                                                    .print(String.valueOf(resultM.getElement(j, i)) + var
+                                                    .print(String.valueOf(resultM.getElement(j, i))
+                                                            + String.format("x_%d", idx)
                                                             + " + ");
                                         }
-                                        var++;
+                                        idx++;
                                     }
+                                    output += " = " + String.valueOf(resultM.getElement(j, col - 1)) + "\n";
                                     System.out.print(" = " + String.valueOf(resultM.getElement(j, col - 1)));
                                     System.out.println("");
                                 }
                             } else {
                                 if (col - row >= 2) {
+                                    output += "-> SPL memiliki banyak solusi\n";
                                     System.out.println("-> SPL memiliki banyak solusi\n");
                                     for (int j = 0; j < row; j++) {
-                                        char var = 'a';
+                                        int idx = 0;
                                         for (int i = 0; i < col - 1; i++) {
                                             if (i == col - 2) {
-                                                System.out.print(String.valueOf(resultM.getElement(j, i)) + var);
+                                                output += String.valueOf(resultM.getElement(j, i))
+                                                        + String.format("x_%d", idx);
+                                                System.out.print(String.valueOf(resultM.getElement(j, i))
+                                                        + String.format("x_%d", idx));
                                             } else {
+                                                output += String.valueOf(resultM.getElement(j, i))
+                                                        + String.format("x_%d", idx)
+                                                        + " + ";
                                                 System.out
-                                                        .print(String.valueOf(resultM.getElement(j, i)) + var
+                                                        .print(String.valueOf(resultM.getElement(j, i))
+                                                                + String.format("x_%d", idx)
                                                                 + " + ");
                                             }
-                                            var++;
+                                            idx++;
                                         }
+                                        output += " = " + String.valueOf(resultM.getElement(j, col - 1)) + "\n";
                                         System.out.print(" = " + String.valueOf(resultM.getElement(j, col - 1)));
                                         System.out.println("");
                                     }
                                 } else {
+                                    output += "-> SPL memiliki solusi unik\n";
                                     System.out.println("-> SPL memiliki solusi unik\n");
-                                    char var = 'a';
+                                    int idx = 0;
                                     for (int j = 0; j < row; j++) {
                                         double res = 0;
                                         for (int i = j; i < col - 1; i++) {
                                             if (i == j) {
                                                 res = resultM.getElement(j, col - 1);
-                                                System.out.print(var);
+                                                output += String.format("x_%d", idx);
+                                                System.out.print(String.format("x_%d", idx));
                                             } else {
                                                 res = res - resultM.getElement(j, i) * resultM.getElement(i, col - 1);
                                             }
                                         }
+                                        output += " = " + String.valueOf(res) + "\n";
                                         System.out.print(" = " + String.valueOf(res));
-                                        var++;
+                                        idx++;
                                         System.out.println("");
                                     }
                                 }
                             }
                         } else {
+                            output += "-> SPL tidak memiliki solusi\n";
                             System.out.println("-> SPL tidak memiliki solusi\n");
+                        }
+
+                        System.out.println("Simpan ke dalam file? (Y/N)");
+                        save = scanSubMenu1.next().toUpperCase();
+                        if (save.equals("Y")) {
+                            System.out.println("Masukkan nama file: ");
+                            String pathToFile = scanSubMenu1.next();
+
+                            if (pathToFile.equals("")) {
+                                LocalDate date = LocalDate.now();
+                                pathToFile = "SPL_" + date.toString() + ".txt";
+                            }
+                            try {
+                                FileWriter myWriter = new FileWriter(pathToFile);
+                                myWriter.write(output);
+                                myWriter.close();
+                                System.out.println("Berhasil menyimpan ke dalam file");
+                            } catch (IOException e) {
+                                System.out.println("Terjadi kesalahan dalam menyimpan file");
+                            }
                         }
 
                         break;
@@ -233,6 +282,7 @@ public class Main {
                         resultM.displayMatrix();
                         System.out.println("");
 
+                        output = "";
                         if (isSolvable) {
                             boolean isZeroMatrix = true;
                             for (int i = 0; i < col - 1; i++) {
@@ -247,51 +297,73 @@ public class Main {
                             }
 
                             if (isZeroMatrix) {
+                                output += "-> SPL memiliki banyak solusi\n";
                                 System.out.println("-> SPL memiliki banyak solusi\n");
                                 for (int j = 0; j < row; j++) {
-                                    char var = 'a';
+                                    int idx = 0;
                                     for (int i = 0; i < col - 1; i++) {
                                         if (i == col - 2) {
-                                            System.out.print(String.valueOf(resultM.getElement(j, i)) + var);
+                                            output += String.valueOf(resultM.getElement(j, i))
+                                                    + String.format("x_%d", idx);
+                                            System.out.print(String.valueOf(resultM.getElement(j, i))
+                                                    + String.format("x_%d", idx));
                                         } else {
+                                            output += String.valueOf(resultM.getElement(j, i))
+                                                    + String.format("x_%d", idx)
+                                                    + " + ";
                                             System.out
-                                                    .print(String.valueOf(resultM.getElement(j, i)) + var
+                                                    .print(String.valueOf(resultM.getElement(j, i))
+                                                            + String.format("x_%d", idx)
                                                             + " + ");
                                         }
-                                        var++;
+                                        idx++;
                                     }
+                                    output += " = " + String.valueOf(resultM.getElement(j, col - 1)) + "\n";
                                     System.out.print(" = " + String.valueOf(resultM.getElement(j, col - 1)));
                                     System.out.println("");
                                 }
                             } else {
                                 if (col - row >= 2) {
+                                    output += "-> SPL memiliki banyak solusi\n";
                                     System.out.println("-> SPL memiliki banyak solusi\n");
                                     for (int j = 0; j < row; j++) {
-                                        char var = 'a';
+                                        int idx = 0;
                                         for (int i = 0; i < col - 1; i++) {
                                             if (i == col - 2) {
-                                                System.out.print(String.valueOf(resultM.getElement(j, i)) + var);
+                                                output += String.valueOf(resultM.getElement(j, i))
+                                                        + String.format("x_%d", idx);
+                                                System.out.print(String.valueOf(resultM.getElement(j, i))
+                                                        + String.format("x_%d", idx));
                                             } else {
+                                                output += String.valueOf(resultM.getElement(j, i))
+                                                        + String.format("x_%d", idx)
+                                                        + " + ";
                                                 System.out
-                                                        .print(String.valueOf(resultM.getElement(j, i)) + var
+                                                        .print(String.valueOf(resultM.getElement(j, i))
+                                                                + String.format("x_%d", idx)
                                                                 + " + ");
                                             }
-                                            var++;
+                                            idx++;
                                         }
+                                        output += " = " + String.valueOf(resultM.getElement(j, col - 1)) + "\n";
                                         System.out.print(" = " + String.valueOf(resultM.getElement(j, col - 1)));
                                         System.out.println("");
                                     }
                                 } else {
+                                    output += "-> SPL memiliki solusi unik\n";
                                     System.out.println("-> SPL memiliki solusi unik\n");
                                     for (int j = 0; j < row; j++) {
-                                        char var = 'a';
+                                        int idx = 0;
                                         for (int i = 0; i < col - 1; i++) {
                                             if (i == j) {
-                                                System.out.print(var);
+                                                output += String.valueOf(resultM.getElement(j, col - 1))
+                                                        + String.format("x_%d", idx);
+                                                System.out.print(String.format("x_%d", idx));
                                                 break;
                                             }
-                                            var++;
+                                            idx++;
                                         }
+                                        output += " = " + String.valueOf(resultM.getElement(j, col - 1)) + "\n";
                                         System.out.print(" = " + String.valueOf(resultM.getElement(j, col - 1)));
                                         System.out.println("");
                                     }
@@ -299,6 +371,26 @@ public class Main {
                             }
                         } else {
                             System.out.println("-> SPL tidak memiliki solusi\n");
+                        }
+
+                        System.out.println("Simpan ke dalam file? (Y/N)");
+                        save = scanSubMenu1.next().toUpperCase();
+                        if (save.equals("Y")) {
+                            System.out.println("Masukkan nama file: ");
+                            String pathToFile = scanSubMenu1.next();
+
+                            if (pathToFile.equals("")) {
+                                LocalDate date = LocalDate.now();
+                                pathToFile = "SPL_" + date.toString() + ".txt";
+                            }
+                            try {
+                                FileWriter myWriter = new FileWriter(pathToFile);
+                                myWriter.write(output);
+                                myWriter.close();
+                                System.out.println("Berhasil menyimpan ke dalam file");
+                            } catch (IOException e) {
+                                System.out.println("Terjadi kesalahan dalam menyimpan file");
+                            }
                         }
 
                         break;
@@ -340,28 +432,52 @@ public class Main {
                             M.readMatrix(scanSubMenu1);
                         }
 
-                        A = new Matrix(row, col-1);
-                        for (int i = 0; i < row; i++){
-                            for (int j = 0; j < A.getCol(); j++){
+                        A = new Matrix(row, col - 1);
+                        for (int i = 0; i < row; i++) {
+                            for (int j = 0; j < A.getCol(); j++) {
                                 A.setElement(i, j, M.getElement(i, j));
                             }
                         }
 
                         B = new Matrix(row, 1);
-                        for (int i = 0; i < B.getRow(); i++){
-                            B.setElement(i, 0, M.getElement(i, M.getCol()-1));
+                        for (int i = 0; i < B.getRow(); i++) {
+                            B.setElement(i, 0, M.getElement(i, M.getCol() - 1));
                         }
 
                         System.out.println("");
 
+                        output = "";
                         Matrix result = new MatriksBalikan().SPLInverse(A, B);
                         if (result == null) {
+                            output += "-> Gagal menghitung solusi! Matriks A tak memiliki balikan\n";
                             System.out.println("-> Gagal menghitung solusi! Matriks A tak memiliki balikan");
                         } else {
+                            output += "-> Solusi SPL:\n";
                             System.out.println("-> Solusi SPL:");
                             for (int i = 0; i < row; i++) {
+                                output += String.format("x%d = %f", i + 1, result.getElement(i, 0)) + "\n";
                                 System.out.printf("x%d = %f", i + 1, result.getElement(i, 0));
                                 System.out.println("");
+                            }
+                        }
+
+                        System.out.println("Simpan ke dalam file? (Y/N)");
+                        save = scanSubMenu1.next().toUpperCase();
+                        if (save.equals("Y")) {
+                            System.out.println("Masukkan nama file: ");
+                            String pathToFile = scanSubMenu1.next();
+
+                            if (pathToFile.equals("")) {
+                                LocalDate date = LocalDate.now();
+                                pathToFile = "SPL_" + date.toString() + ".txt";
+                            }
+                            try {
+                                FileWriter myWriter = new FileWriter(pathToFile);
+                                myWriter.write(output);
+                                myWriter.close();
+                                System.out.println("Berhasil menyimpan ke dalam file");
+                            } catch (IOException e) {
+                                System.out.println("Terjadi kesalahan dalam menyimpan file");
                             }
                         }
                         break;
@@ -415,17 +531,39 @@ public class Main {
 
                         double[] cramer = new Cramer().cramer(M1);
 
-                        if (cramer != null){
+                        output = "";
+                        if (cramer != null) {
+                            output += "-> Solusi SPL:\n";
                             System.out.println("-> Solusi SPL:");
                             for (int i = 0; i < row; i++) {
+                                output += String.format("x%d = %f", i + 1, cramer[i]) + "\n";
                                 System.out.printf("x%d = %f", i + 1, cramer[i]);
                                 System.out.println("");
                             }
-                        }
-                        else{
+                        } else {
+                            output += "-> Gagal menghitung solusi! Matriks A tak memiliki balikan\n";
                             System.out.println("-> Gagal menghitung solusi! Matriks A tak memiliki balikan");
-                        }                       
+                        }
 
+                        System.out.println("Simpan ke dalam file? (Y/N)");
+                        save = scanSubMenu1.next().toUpperCase();
+                        if (save.equals("Y")) {
+                            System.out.println("Masukkan nama file: ");
+                            String pathToFile = scanSubMenu1.next();
+
+                            if (pathToFile.equals("")) {
+                                LocalDate date = LocalDate.now();
+                                pathToFile = "SPL_" + date.toString() + ".txt";
+                            }
+                            try {
+                                FileWriter myWriter = new FileWriter(pathToFile);
+                                myWriter.write(output);
+                                myWriter.close();
+                                System.out.println("Berhasil menyimpan ke dalam file");
+                            } catch (IOException e) {
+                                System.out.println("Terjadi kesalahan dalam menyimpan file");
+                            }
+                        }
                         break;
                 }
             } else {
@@ -491,23 +629,45 @@ public class Main {
 
                         System.out.println("");
 
+                        String output = "";
                         if (A.isSquareMatrix()) {
                             if (pilSubMenu2 == 1) {
                                 double result = new Kofaktor().detKofaktor(A);
                                 A.displayMatrix();
+                                output += "-> Determinan: " + result + "\n";
                                 System.out.println("-> Determinan: " + result + "\n");
                             } else {
                                 double result = ReduksiBaris.determinan(A);
                                 A.displayMatrix();
+                                output += "-> Determinan: " + result + "\n";
                                 System.out.println("-> Determinan: " + result + "\n");
                             }
-                        }
-                        else {
+                        } else {
+                            output += "Matriks masukan BUKANLAH MATRIKS PERSEGI\n";
                             System.out.printf("Gagal!\nMatriks masukan BUKANLAH MATRIKS PERSEGI\n");
                         }
-                    }
-            }
-            else {
+
+                        System.out.println("Simpan ke dalam file? (Y/N)");
+                        String save = scanSubMenu2.next().toUpperCase();
+                        if (save.equals("Y")) {
+                            System.out.println("Masukkan nama file: ");
+                            String pathToFile = scanSubMenu2.next();
+
+                            if (pathToFile.equals("")) {
+                                LocalDate date = LocalDate.now();
+                                pathToFile = "Determinan_" + date.toString() + ".txt";
+                            }
+                            try {
+                                FileWriter myWriter = new FileWriter(pathToFile);
+                                myWriter.write(output);
+                                myWriter.close();
+                                System.out.println("Berhasil menyimpan ke dalam file");
+                            } catch (IOException e) {
+                                System.out.println("Terjadi kesalahan dalam menyimpan file");
+                            }
+                        }
+                }
+            } else {
                 System.out.printf("Masukan TIDAK VALID\n");
             }
         }
@@ -570,39 +730,80 @@ public class Main {
 
                         System.out.println("");
 
+                        String output = "";
                         if (A.isSquareMatrix()) {
                             if (pilSubMenu2 == 1) {
                                 Matrix result = new Adjoin().inverseAdjoin(A);
                                 if (result == null) {
+                                    output += "-> Tidak Memiliki Matriks Balikan\n";
                                     System.out.println("-> Tidak Memiliki Matriks Balikan\n");
                                 } else {
+                                    output += "-> Hasil Matriks Balikan:\n";
+                                    for (int i = 0; i < result.getRow(); i++) {
+                                        for (int j = 0; j < result.getCol(); j++) {
+                                            output += String.valueOf(result.getElement(i, j));
+                                            if (j != result.getCol() - 1) {
+                                                output += " ";
+                                            }
+                                        }
+                                        output += "\n";
+                                    }
                                     System.out.println("-> Hasil Matriks Balikan:");
                                     result.displayMatrix();
                                 }
-                            }
-                            else {
+                            } else {
                                 Matrix result = new BalikanGaussJordan().balikanGaussJordan(A);
                                 if (result == null) {
+                                    output += "-> Tidak Memiliki Matriks Balikan\n";
                                     System.out.println("-> Tidak Memiliki Matriks Balikan\n");
                                 } else {
+                                    output += "-> Hasil Matriks Balikan:\n";
+                                    for (int i = 0; i < result.getRow(); i++) {
+                                        for (int j = 0; j < result.getCol(); j++) {
+                                            output += String.valueOf(result.getElement(i, j));
+                                            if (j != result.getCol() - 1) {
+                                                output += " ";
+                                            }
+                                        }
+                                        output += "\n";
+                                    }
                                     System.out.println("-> Hasil Matriks Balikan:");
                                     result.displayMatrix();
                                 }
                             }
-                        }
-                        else {
+                        } else {
+                            output += "Matriks masukan BUKANLAH MATRIKS PERSEGI\n";
                             System.out.printf("Matriks Masukan BUKANLAH MATRIKS PERSEGI\n");
                         }
+
+                        System.out.println("Simpan ke dalam file? (Y/N)");
+                        String save = scanSubMenu3.next().toUpperCase();
+                        if (save.equals("Y")) {
+                            System.out.println("Masukkan nama file: ");
+                            String pathToFile = scanSubMenu3.next();
+
+                            if (pathToFile.equals("")) {
+                                LocalDate date = LocalDate.now();
+                                pathToFile = "Balikan_" + date.toString() + ".txt";
+                            }
+                            try {
+                                FileWriter myWriter = new FileWriter(pathToFile);
+                                myWriter.write(output);
+                                myWriter.close();
+                                System.out.println("Berhasil menyimpan ke dalam file");
+                            } catch (IOException e) {
+                                System.out.println("Terjadi kesalahan dalam menyimpan file");
+                            }
+                        }
                 }
-            }
-            else {
+            } else {
                 System.out.printf("Masukan TIDAK VALID\n");
             }
         }
     }
 
     private static void runInterpol() {
-        while (true){
+        while (true) {
             int row, col;
             double est;
             boolean next = true;
@@ -640,10 +841,9 @@ public class Main {
 
                 int nUji = new InterpolasiPolinom().countTest(pathToFile);
 
-                if (nUji != 0){
+                if (nUji != 0) {
                     uji = uji.readInterpolTestFromFile(nUji, pathToFile);
-                }
-                else{
+                } else {
                     next = false;
                 }
             } else {
@@ -659,43 +859,50 @@ public class Main {
             Matrix result = new InterpolasiPolinom().SPLInterpol(A);
             for (int i = 0; i < result.getRow(); i++) {
                 result.setElement(i, result.getCol() - 1,
-                    Double.parseDouble(df.format(result.getElement(i, result.getCol() - 1))));
+                        Double.parseDouble(df.format(result.getElement(i, result.getCol() - 1))));
             }
 
+            String output = "p" + String.format("%d", row - 1) + "(x) = ";
             System.out.print("p" + (row - 1) + "(x) = ");
             for (int i = 0; i < result.getRow(); i++) {
                 if (i == 0) {
+                    output += String.valueOf(result.getElement(i, result.getCol() - 1));
                     System.out.print(result.getElement(i, result.getCol() - 1));
                 } else if (i == 1) {
+                    output += String.valueOf(result.getElement(i, result.getCol() - 1)) + "(x)";
                     System.out.print(result.getElement(i, result.getCol() - 1) + "(x)");
                 } else {
+                    output += String.valueOf(result.getElement(i, result.getCol() - 1)) + "(x^" + i + ")";
                     System.out.print(result.getElement(i, result.getCol() - 1) + "(x^" + i + ")");
                 }
 
                 if (i != result.getRow() - 1) {
+                    output += " + ";
                     System.out.print(" + ");
                 }
             }
+            output += "\n";
             System.out.println("");
 
-
             while (next) {
-                if (isFile == true){
-                    for (int i = 0; i < uji.getRow(); i ++){
+                if (isFile == true) {
+                    for (int i = 0; i < uji.getRow(); i++) {
                         est = 0.0;
                         for (int j = 0; j < result.getRow(); j++) {
                             est = est + result.getElement(j, result.getCol() - 1) * (Math.pow(uji.getElement(i, 0), j));
                         }
-
-                        System.out.println("p" + (row - 1) + "(" + uji.getElement(i, 0) + ") = " + Double.parseDouble(df.format(est)));
+                        output += "p" + String.format("%d", row - 1) + "(" + uji.getElement(i, 0) + ") = "
+                                + Double.parseDouble(df.format(est)) + "\n";
+                        System.out.println("p" + (row - 1) + "(" + uji.getElement(i, 0) + ") = "
+                                + Double.parseDouble(df.format(est)));
                     }
                     next = false;
-                }
-                else{
+                } else {
                     System.out.printf("\nPrediksi nilai titik Ya (Y) atau Tidak (T) > ");
                     String ujiInterpol = scanInterpol.next().toUpperCase();
 
                     if (!input.equals("Y") && !input.equals("T")) {
+                        output += "Masukan TIDAK VALID\n";
                         System.out.println("Masukan TIDAK VALID\n");
                         break;
                     }
@@ -710,18 +917,41 @@ public class Main {
                             est = est + result.getElement(i, result.getCol() - 1) * (Math.pow(x, i));
                         }
 
+                        output += "p" + String.format("%d", row - 1) + "(" + x + ") = "
+                                + Double.parseDouble(df.format(est)) + "\n";
                         System.out.println("p" + (row - 1) + "(" + x + ") = " + Double.parseDouble(df.format(est)));
                     } else {
                         break;
                     }
                 }
             }
+
+            System.out.println("Simpan ke dalam file? (Y/N)");
+            String save = scanInterpol.next().toUpperCase();
+            if (save.equals("Y")) {
+                System.out.println("Masukkan nama file: ");
+                String pathToFile = scanInterpol.next();
+
+                if (pathToFile.equals("")) {
+                    LocalDate date = LocalDate.now();
+                    pathToFile = "InterpolasiPolinom_" + date.toString() + ".txt";
+                }
+                try {
+                    FileWriter myWriter = new FileWriter(pathToFile);
+                    myWriter.write(output);
+                    myWriter.close();
+                    System.out.println("Berhasil menyimpan ke dalam file");
+                } catch (IOException e) {
+                    System.out.println("Terjadi kesalahan dalam menyimpan file");
+                }
+            }
+
             break;
         }
     }
 
     private static void runBicubic() {
-        while (true){
+        while (true) {
             BicubicSpline bicubic = new BicubicSpline();
             Matrix X = bicubic.bicubicSpline();
             boolean isFile = false;
@@ -815,12 +1045,32 @@ public class Main {
             Matrix a = mb.multiplyMatrix(inv_A, y);
             double z = bicubic.f(x1, y1, a);
             System.out.println("z = " + z);
+
+            System.out.println("Simpan ke dalam file? (Y/N)");
+            String save = scanBicubic.next().toUpperCase();
+            if (save.equals("Y")) {
+                System.out.println("Masukkan nama file: ");
+                String pathToFile = scanBicubic.next();
+
+                if (pathToFile.equals("")) {
+                    LocalDate date = LocalDate.now();
+                    pathToFile = "BicubicSpline_" + date.toString() + ".txt";
+                }
+                try {
+                    FileWriter myWriter = new FileWriter(pathToFile);
+                    myWriter.write("z = " + z);
+                    myWriter.close();
+                    System.out.println("Berhasil menyimpan ke dalam file");
+                } catch (IOException e) {
+                    System.out.println("Terjadi kesalahan dalam menyimpan file");
+                }
+            }
             break;
         }
     }
 
     private static void runRegresi() {
-        while (true){
+        while (true) {
             int row;
             int col;
             double x;
@@ -879,41 +1129,69 @@ public class Main {
                         Double.parseDouble(df.format(result.getElement(i, result.getCol() - 1))));
             }
 
+            String output = "f(x) = ";
             System.out.print("f(x) = ");
             for (int i = 0; i < result.getRow(); i++) {
                 if (i == 0) {
-                    System.out.print(result.getElement(i, result.getCol()-1));
+                    output += result.getElement(i, result.getCol() - 1);
+                    System.out.print(result.getElement(i, result.getCol() - 1));
                 } else if (i == 1) {
+                    output += result.getElement(i, result.getCol() - 1) + "(x)";
                     System.out.print(result.getElement(i, result.getCol() - 1) + "(x)");
                 } else {
+                    output += result.getElement(i, result.getCol() - 1) + "(x^" + i + ")";
                     System.out.print(result.getElement(i, result.getCol() - 1) + "(x^" + i + ")");
                 }
 
                 if (i != result.getRow() - 1) {
+                    output += " + ";
                     System.out.print(" + ");
                 }
             }
+            output += "\n";
             System.out.println("");
-            
+
             while (next) {
                 System.out.printf("\nPrediksi nilai titik Ya (Y) atau Tidak (T) > ");
                 String ujiRegresi = scanRegresi.next().toUpperCase();
 
                 if (!ujiRegresi.equals("Y") && !ujiRegresi.equals("T")) {
+                    output += "Masukan TIDAK VALID\n";
                     System.out.println("Masukan TIDAK VALID");
                     break;
                 }
 
                 if (ujiRegresi.equals("Y")) {
-                    hasil = result.getElement(0, result.getCol()-1);
-                    for (int i = 1; i < result.getCol()-2;i++){
-                        System.out.print("Masukkan nilai x"+i+": ");
+                    hasil = result.getElement(0, result.getCol() - 1);
+                    for (int i = 1; i < result.getCol() - 2; i++) {
+                        System.out.print("Masukkan nilai x" + i + ": ");
                         x = scanRegresi.nextDouble();
                         hasil += x;
                     }
+                    output += "f(x) = " + Double.parseDouble(df.format(hasil)) + "\n";
                     System.out.println("f(x) = " + Double.parseDouble(df.format(hasil)));
                 } else {
                     break;
+                }
+            }
+
+            System.out.println("Simpan ke dalam file? (Y/N)");
+            String save = scanRegresi.next().toUpperCase();
+            if (save.equals("Y")) {
+                System.out.println("Masukkan nama file: ");
+                String pathToFile = scanRegresi.next();
+
+                if (pathToFile.equals("")) {
+                    LocalDate date = LocalDate.now();
+                    pathToFile = "Regresi_" + date.toString() + ".txt";
+                }
+                try {
+                    FileWriter myWriter = new FileWriter(pathToFile);
+                    myWriter.write(output);
+                    myWriter.close();
+                    System.out.println("Berhasil menyimpan ke dalam file");
+                } catch (IOException e) {
+                    System.out.println("Terjadi kesalahan dalam menyimpan file");
                 }
             }
             break;
