@@ -4,7 +4,6 @@ import java.util.Scanner;
 import java.io.File;
 import java.text.DecimalFormat;
 
-
 public class Matrix {
     private final int row;
     private final int col;
@@ -86,7 +85,7 @@ public class Matrix {
             while (scanner1.hasNextLine()) {
                 String data = scanner1.nextLine();
                 String[] array = data.split(" ");
-                if (array.length == 2){
+                if (array.length == 2) {
                     row++;
                 }
             }
@@ -99,7 +98,7 @@ public class Matrix {
             while (scanner2.hasNextLine()) {
                 String data = scanner2.nextLine();
                 String[] array = data.split(" ");
-                if (array.length == 2){
+                if (array.length == 2) {
                     for (int i = 0; i < array.length; i++) {
                         matrix.setElement(mrow, i, Double.parseDouble(array[i]));
                     }
@@ -121,6 +120,9 @@ public class Matrix {
         }
     }
 
+    /**
+     * Membaca titik uji interpolasi dari file
+     */
     public Matrix readInterpolTestFromFile(int n, String pathToFile) {
         try {
             Matrix pointTest = new Matrix(n, 1);
@@ -130,7 +132,7 @@ public class Matrix {
             while (scanner1.hasNextLine()) {
                 String data = scanner1.nextLine();
                 String[] array = data.split(" ");
-                if (array.length == 1){
+                if (array.length == 1) {
                     pointTest.setElement(mrow, 0, Double.parseDouble(array[0]));
                     mrow++;
                 }

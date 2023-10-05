@@ -2,12 +2,19 @@
 
 Tugas Besar 1 Aljabar Linear dan Geometri
 
-## Commit Format
+## About The Project
+
+Tugas Besar 1 Aljabar Linear dan Geometri merupakan tugas besar pertama mahasiswa Teknik Informatika
+ITB. Program yang kami buat dapat digunakan untuk menghitung sistem persamaan linear, determinan, dan
+balikan dari sebuah matriks. Selain itu program yang kami buat juga dapat melakukan interpolasi polinomial,
+regresi linear berganda, dan interpolasi bicubic spline.
+
+## Usage
+
+Dalam folder test, ketik command berikut
 
 ```bash
-fix: message
-feat: message
-docs: message
+java -cp ..\bin\ .\Main.java
 ```
 
 ## Anggota Kelompok
