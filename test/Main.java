@@ -1141,8 +1141,8 @@ public class Main {
                     output += result.getElement(i, result.getCol() - 1) + "(x_" + i + ")";
                     System.out.print(result.getElement(i, result.getCol() - 1) + "(x_" + i + ")");
                 } else {
-                    output += result.getElement(i, result.getCol() - 1) + "(x_" + i + ")" + " + ";
-                    System.out.print(result.getElement(i, result.getCol() - 1) + "(x_" + i + ")" + " + ");
+                    output += result.getElement(i, result.getCol() - 1) + "(x_" + i + ")";
+                    System.out.print(result.getElement(i, result.getCol() - 1) + "(x_" + i + ")");
                 }
 
                 if (i != result.getRow() - 1) {
@@ -1165,9 +1165,10 @@ public class Main {
 
                 if (ujiRegresi.equals("Y")) {
                     hasil = result.getElement(0, result.getCol() - 1);
-                    for (int i = 1; i < result.getCol() - 2; i++) {
-                        System.out.print("Masukkan nilai x" + i + ": ");
+                    for (int i = 1; i < result.getCol() - 1; i++) {
+                        System.out.print("Masukkan nilai x_" + i + ": ");
                         x = scanRegresi.nextDouble();
+                        x *= result.getElement(i, result.getCol()-1);
                         hasil += x;
                     }
                     output += "f(x) = " + Double.parseDouble(df.format(hasil)) + "\n";
