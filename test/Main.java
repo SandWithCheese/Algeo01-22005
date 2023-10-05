@@ -156,16 +156,19 @@ public class Main {
                                     }
                                 } else {
                                     System.out.println("-> SPL memiliki solusi unik\n");
+                                    char var = 'a';
                                     for (int j = 0; j < row; j++) {
-                                        char var = 'a';
-                                        for (int i = 0; i < col - 1; i++) {
+                                        double res = 0;
+                                        for (int i = j; i < col - 1; i++) {
                                             if (i == j) {
+                                                res = resultM.getElement(j, col - 1);
                                                 System.out.print(var);
-                                                break;
+                                            } else {
+                                                res = res - resultM.getElement(j, i) * resultM.getElement(i, col - 1);
                                             }
-                                            var++;
                                         }
-                                        System.out.print(" = " + String.valueOf(resultM.getElement(j, col - 1)));
+                                        System.out.print(" = " + String.valueOf(res));
+                                        var++;
                                         System.out.println("");
                                     }
                                 }
