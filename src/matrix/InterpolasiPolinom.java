@@ -7,6 +7,9 @@ import java.io.File;
 
 
 public class InterpolasiPolinom {
+    /**
+     * Mengembalikan solusi SPL dengan metode Gauss-Jordan
+     */
     public Matrix SPLInterpol(Matrix A){
         Matrix lanjar = new Matrix(A.getRow(), A.getRow()+1);
 
@@ -28,6 +31,10 @@ public class InterpolasiPolinom {
         return lanjar;
     }
 
+
+    /**
+     * Mengembalikan jumlah titik uji interpolasi dari file
+     */
     public int countTest(String pathToFile){
         try {
             int nUji = 0;
