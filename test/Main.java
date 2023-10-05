@@ -200,21 +200,21 @@ public class Main {
                                 } else {
                                     output += "-> SPL memiliki solusi unik\n";
                                     System.out.println("-> SPL memiliki solusi unik\n");
-                                    int idx = 0;
+                                    resultM = new GaussJordan().gaussJordan(resultM);
                                     for (int j = 0; j < row; j++) {
-                                        double res = 0;
-                                        for (int i = j; i < col - 1; i++) {
+                                        int idx = 0;
+                                        for (int i = 0; i < col - 1; i++) {
                                             if (i == j) {
-                                                res = resultM.getElement(j, col - 1);
                                                 output += String.format("x_%d", idx + 1);
                                                 System.out.print(String.format("x_%d", idx + 1));
-                                            } else {
-                                                res = res - resultM.getElement(j, i) * resultM.getElement(i, col - 1);
+                                                break;
                                             }
+                                            idx++;
                                         }
-                                        output += " = " + String.valueOf(Double.parseDouble(df.format(res))) + "\n";
-                                        System.out.print(" = " + String.valueOf(Double.parseDouble(df.format(res))));
-                                        idx++;
+                                        output += " = " + String.valueOf(df.format(resultM.getElement(j, col - 1)))
+                                                + "\n";
+                                        System.out.print(
+                                                " = " + String.valueOf(df.format(resultM.getElement(j, col - 1))));
                                         System.out.println("");
                                     }
                                 }
@@ -391,6 +391,7 @@ public class Main {
                                 }
                             }
                         } else {
+                            output += "-> SPL tidak memiliki solusi\n";
                             System.out.println("-> SPL tidak memiliki solusi\n");
                         }
 
