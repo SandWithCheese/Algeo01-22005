@@ -81,6 +81,9 @@ public class Gauss {
         Matrix temp;
 
         for (int i = 0; i < m.getRow(); i++) {
+            if (i == m.getCol() - 1) {
+                break;
+            }
             if (result.getElement(i, i) == 0) {
                 for (int j = i + 1; j < m.getRow(); j++) {
                     if (result.getElement(j, i) != 0) {

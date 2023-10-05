@@ -81,6 +81,9 @@ public class GaussJordan {
         Matrix temp;
 
         for (int i = 0; i < M.getRow(); i++) {
+            if (i == M.getCol() - 1) {
+                break;
+            }
             if (result.getElement(i, i) == 0) {
                 for (int j = i + 1; j < M.getRow(); j++) {
                     if (result.getElement(j, i) != 0) {
